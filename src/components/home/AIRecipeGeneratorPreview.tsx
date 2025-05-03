@@ -1,0 +1,433 @@
+import { useState } from "react";
+import { Button } from "../ui/button";
+import { Textarea } from "../ui/textarea";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "../ui/select";
+import { Card, CardContent } from "../ui/card";
+import { Camera, Loader2 } from "lucide-react";
+import { Link } from "react-router-dom";
+
+type GeneratedRecipe = {
+  title: string;
+  time: string;
+  calories: string;
+  nutritionType: string;
+  ingredients: string[];
+  instructions: string[];
+  substitutions: string;
+};
+
+export default function AIRecipeGeneratorPreview() {
+  const [ingredients, setIngredients] = useState("");
+  const [dietaryPreference, setDietaryPreference] = useState("low-carb");
+  const [nutritionalGoal, setNutritionalGoal] = useState("high-protein");
+  const [generatedRecipe, setGeneratedRecipe] =
+    useState<GeneratedRecipe | null>(null);
+  const [isGenerating, setIsGenerating] = useState(false);
+  const [imageFile, setImageFile] = useState<File | null>(null);
+  const [imagePreview, setImagePreview] = useState<string | null>(null);
+  const [isAnalyzingImage, setIsAnalyzingImage] = useState(false);
+
+  // Function to handle recipe generation
+  const handleGenerateRecipe = () => {
+    setIsGenerating(true);
+
+    // Simulate API call with timeout
+    setTimeout(() => {
+      setGeneratedRecipe({
+        title: "Lemon Garlic Panir with Spinach",
+        time: "25 mins",
+        calories: "350 calories",
+        nutritionType: "High protein",
+        ingredients: [
+          "200gm Panir ",
+          "2 cups fresh spinach",
+          "3 cloves garlic, minced",
+          "2 tbsp olive oil",
+          "1 lemon, juiced",
+          "Salt and pepper to taste",
+        ],
+        instructions: [
+          "Season chicken with salt and pepper",
+          "Heat olive oil in a pan over medium heat",
+          "Cook chicken for 5-7 minutes per side",
+          "Add garlic and cook for 30 seconds",
+          "Add spinach and lemon juice",
+          "Cook until spinach is wilted",
+        ],
+        substitutions:
+          "No spinach? Try kale or swiss chard instead. For a dairy-free option, skip the parmesan garnish.",
+      });
+      setIsGenerating(false);
+    }, 1500);
+  };
+
+  // Function to handle "Surprise Me" button
+  const handleSurpriseMe = () => {
+    setIngredients("chicken, spinach, garlic, olive oil, lemon");
+    setDietaryPreference("low-carb");
+    setNutritionalGoal("high-protein");
+    handleGenerateRecipe();
+  };
+
+  // Function to handle image upload
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      setImageFile(file);
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setImagePreview(reader.result as string);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  // Function to handle image analysis
+  const handleAnalyzeImage = () => {
+    if (!imageFile) return;
+
+    setIsAnalyzingImage(true);
+
+    // Simulate API call with timeout
+    setTimeout(() => {
+      // Simulate detected ingredients
+      const detectedIngredients = "tomatoes, onions, bell peppers, chicken";
+      setIngredients((prev) =>
+        prev ? `${prev}, ${detectedIngredients}` : detectedIngredients,
+      );
+      setIsAnalyzingImage(false);
+    }, 2000);
+  };
+
+  return (
+    <section className="py-16 bg-gradient-to-b from-green-50 to-white">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6">
+        <div className="text-center mb-12">
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+            AI-Powered Recipe Generator
+          </h2>
+          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            Turn your available ingredients into delicious meals with our smart
+            recipe generator
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div className="bg-white p-6 rounded-xl shadow-md">
+            <h3 className="text-xl font-semibold mb-4">
+              What's in your kitchen?
+            </h3>
+            <div className="space-y-4">
+              {/* Image Upload Section */}
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Upload a photo of your ingredients
+                </label>
+                <div className="flex items-center gap-3">
+                  <label className="flex-1">
+                    <div className="relative flex h-10 w-full cursor-pointer items-center justify-center rounded-md border border-dashed border-gray-300 bg-gray-50 hover:bg-gray-100 transition-colors">
+                      <Camera className="h-4 w-4 text-gray-500 mr-2" />
+                      <span className="text-sm text-gray-500">
+                        Choose image
+                      </span>
+                      <input
+                        type="file"
+                        accept="image/*"
+                        className="sr-only"
+                        onChange={handleImageChange}
+                      />
+                    </div>
+                  </label>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={handleAnalyzeImage}
+                    disabled={!imageFile || isAnalyzingImage}
+                    className="h-10"
+                  >
+                    {isAnalyzingImage ? (
+                      <>
+                        <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                        Analyzing...
+                      </>
+                    ) : (
+                      "Analyze Image"
+                    )}
+                  </Button>
+                </div>
+
+                {imagePreview && (
+                  <div className="relative mt-2 rounded-md overflow-hidden">
+                    <img
+                      src={imagePreview}
+                      alt="Ingredient preview"
+                      className="w-full h-32 object-cover rounded-md"
+                    />
+                    {isAnalyzingImage && (
+                      <div className="absolute inset-0 bg-black/50 flex items-center justify-center">
+                        <div className="text-white text-sm font-medium">
+                          Analyzing image...
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                )}
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Ingredients
+                </label>
+                <Textarea
+                  className="h-24 bg-gray-50 rounded-md w-full border border-gray-200 p-2 text-sm"
+                  placeholder="Enter ingredients separated by commas (e.g., chicken, spinach, garlic, olive oil, lemon...)"
+                  value={ingredients}
+                  onChange={(e) => setIngredients(e.target.value)}
+                />
+              </div>
+
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                    Dietary Preferences
+                  </label>
+                  <Select
+                    value={dietaryPreference}
+                    onValueChange={setDietaryPreference}
+                  >
+                    <SelectTrigger className="h-10 bg-gray-50 rounded-md w-full border border-gray-200">
+                      <SelectValue placeholder="Select dietary preference" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="low-carb">Low-carb</SelectItem>
+                      <SelectItem value="keto">Keto</SelectItem>
+                      <SelectItem value="vegan">Vegan</SelectItem>
+                      <SelectItem value="vegetarian">Vegetarian</SelectItem>
+                      <SelectItem value="gluten-free">Gluten-free</SelectItem>
+                      <SelectItem value="dairy-free">Dairy-free</SelectItem>
+                      <SelectItem value="paleo">Paleo</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                    Nutritional Goals
+                  </label>
+                  <Select
+                    value={nutritionalGoal}
+                    onValueChange={setNutritionalGoal}
+                  >
+                    <SelectTrigger className="h-10 bg-gray-50 rounded-md w-full border border-gray-200">
+                      <SelectValue placeholder="Select nutritional goal" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="high-protein">High protein</SelectItem>
+                      <SelectItem value="low-calorie">Low calorie</SelectItem>
+                      <SelectItem value="low-fat">Low fat</SelectItem>
+                      <SelectItem value="high-fiber">High fiber</SelectItem>
+                      <SelectItem value="balanced">Balanced</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+              </div>
+
+              <div className="flex gap-4">
+                <Link to="/recipe-generator" className="flex-1">
+                  <Button
+                    className="w-full bg-gradient-to-r from-green-600 to-green-500 hover:from-green-700 hover:to-green-600 text-white shadow-md hover:shadow-lg transition-all"
+                    disabled={isGenerating || !ingredients.trim()}
+                  >
+                    {isGenerating ? "Generating..." : "Generate Recipe"}
+                  </Button>
+                </Link>
+                <Button
+                  variant="outline"
+                  className="flex-1 border-green-200 text-green-700 hover:bg-green-50 hover:text-green-800 hover:border-green-300"
+                  onClick={handleSurpriseMe}
+                  disabled={isGenerating}
+                >
+                  Surprise Me!
+                </Button>
+              </div>
+            </div>
+          </div>
+
+          <Card className="overflow-hidden shadow-lg border-0 bg-white">
+            <div className="bg-gradient-to-r from-green-600 to-green-500 p-4 text-white">
+              <h3 className="font-semibold text-xl">
+                Your AI-Generated Recipe
+              </h3>
+              <p className="text-green-100 text-sm">
+                Personalized just for you
+              </p>
+            </div>
+            <CardContent className="p-6">
+              {!generatedRecipe && !isGenerating ? (
+                <div className="flex flex-col items-center justify-center h-64 text-center">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="48"
+                    height="48"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className="text-gray-300 mb-4"
+                  >
+                    <path d="M6 13.87A4 4 0 0 1 7.41 6a5.11 5.11 0 0 1 1.05-1.54 5 5 0 0 1 7.08 0A5.11 5.11 0 0 1 16.59 6 4 4 0 0 1 18 13.87V21H6Z" />
+                    <line x1="6" x2="18" y1="17" y2="17" />
+                  </svg>
+                  <p className="text-gray-500">
+                    Enter your ingredients and preferences, then click "Generate
+                    Recipe" or try "Surprise Me!" to see your personalized
+                    recipe here.
+                  </p>
+                </div>
+              ) : isGenerating ? (
+                <div className="flex flex-col items-center justify-center h-64">
+                  <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-green-500 mb-4"></div>
+                  <p className="text-gray-600 font-medium">
+                    Generating your recipe...
+                  </p>
+                  <p className="text-gray-500 text-sm mt-2">
+                    Our AI is creating a personalized recipe based on your
+                    ingredients and preferences.
+                  </p>
+                </div>
+              ) : (
+                <div className="space-y-4">
+                  <div>
+                    <h4 className="text-xl font-semibold text-green-600">
+                      {generatedRecipe.title}
+                    </h4>
+                    <div className="flex flex-wrap items-center gap-4 mt-2 text-sm text-gray-500">
+                      <span className="flex items-center">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="14"
+                          height="14"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          className="mr-1"
+                        >
+                          <circle cx="12" cy="12" r="10" />
+                          <polyline points="12 6 12 12 16 14" />
+                        </svg>{" "}
+                        {generatedRecipe.time}
+                      </span>
+                      <span className="flex items-center">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="14"
+                          height="14"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          className="mr-1"
+                        >
+                          <path d="M2.27 21.7s9.87-3.5 12.73-6.36a4.5 4.5 0 0 0-6.36-6.37C5.77 11.84 2.27 21.7 2.27 21.7zM15.42 15.42l6.37-6.37" />
+                        </svg>{" "}
+                        {generatedRecipe.calories}
+                      </span>
+                      <span className="flex items-center">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="14"
+                          height="14"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          className="mr-1"
+                        >
+                          <path d="M20.24 12.24a6 6 0 0 0-8.49-8.49L5 10.5V19h8.5z" />
+                          <line x1="16" x2="2" y1="8" y2="22" />
+                          <line x1="17.5" x2="9" y1="15" y2="15" />
+                        </svg>{" "}
+                        {generatedRecipe.nutritionType}
+                      </span>
+                    </div>
+                  </div>
+
+                  <div className="text-sm">
+                    <h5 className="font-medium text-gray-700 mb-1">
+                      Ingredients:
+                    </h5>
+                    <ul className="list-disc pl-5 text-gray-600 space-y-1">
+                      {generatedRecipe.ingredients.map((ingredient, index) => (
+                        <li key={index}>{ingredient}</li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  <div className="text-sm">
+                    <h5 className="font-medium text-gray-700 mb-1">
+                      Instructions:
+                    </h5>
+                    <ol className="list-decimal pl-5 text-gray-600 space-y-1">
+                      {generatedRecipe.instructions.map(
+                        (instruction, index) => (
+                          <li key={index}>{instruction}</li>
+                        ),
+                      )}
+                    </ol>
+                  </div>
+
+                  <div className="bg-blue-50 p-3 rounded-md border border-blue-100">
+                    <h5 className="text-sm font-medium text-blue-700 flex items-center gap-1">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="16"
+                        height="16"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      >
+                        <circle cx="12" cy="12" r="10" />
+                        <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" />
+                        <line x1="12" x2="12.01" y1="17" y2="17" />
+                      </svg>
+                      Substitution Ideas:
+                    </h5>
+                    <p className="text-xs text-blue-600 mt-1">
+                      {generatedRecipe.substitutions}
+                    </p>
+                  </div>
+
+                  <Link to="/recipe-generator" className="block w-full mt-4">
+                    <Button
+                      variant="outline"
+                      className="w-full border-green-200 text-green-700 hover:bg-green-50"
+                    >
+                      Try More Recipes
+                    </Button>
+                  </Link>
+                </div>
+              )}
+            </CardContent>
+          </Card>
+        </div>
+      </div>
+    </section>
+  );
+}
