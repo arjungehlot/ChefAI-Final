@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { useAuth } from "../../../supabase/auth";
 import RecipeCard from "@/components/recipe/RecipeCard";
+import SearchRecipes from "../searchRecipes/SearchRecipes";
 
 export default function RecipesPage() {
   const { user } = useAuth();
@@ -130,6 +131,8 @@ export default function RecipesPage() {
   return (
     <div className="min-h-screen bg-white">
       {/* Header is included in the App layout */}
+
+      <SearchRecipes />
 
       <main className="pt-14 pb-20 px-6">
         <div className="max-w-7xl mx-auto">
