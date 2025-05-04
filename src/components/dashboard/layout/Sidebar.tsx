@@ -34,15 +34,15 @@ const defaultNavItems: NavItem[] = [
 ];
 
 const kitchenItems: NavItem[] = [
-  { icon: <Wand2 size={20} />, label: "Recipe Generator" },
-  { icon: <ShoppingCart size={20} />, label: "Grocery List" },
-  { icon: <Calendar size={20} />, label: "Meal Planner" },
-  { icon: <Activity size={20} />, label: "Nutrition" },
+  { icon: <Wand2 size={20} />, label: "Recipe Generator" , href: "/recipe-generator" },
+  { icon: <ShoppingCart size={20} />, label: "Grocery List" , href: "/grocery-list" },
+  { icon: <Calendar size={20} />, label: "Meal Planner", href: "/meal-planner" },
+  { icon: <Activity size={20} />, label: "Nutrition" , href: "/nutrition" },
 ];
 
 const defaultBottomItems: NavItem[] = [
-  { icon: <Settings size={20} />, label: "Settings" },
-  { icon: <HelpCircle size={20} />, label: "Help" },
+  { icon: <Settings size={20} />, label: "Settings" , href: "/settings" },
+  { icon: <HelpCircle size={20} />, label: "Help" , href: "/help" },
 ];
 
 const Sidebar = ({
@@ -64,7 +64,14 @@ const Sidebar = ({
               key={item.label}
               variant={"ghost"}
               className={`w-full justify-start gap-3 h-10 rounded-xl text-sm font-medium ${item.label === activeItem ? "bg-green-50 text-green-600 hover:bg-green-100" : "text-gray-700 hover:bg-gray-100"}`}
-              onClick={() => onItemClick(item.label)}
+              // onClick={() => onItemClick(item.label)}
+              onClick={() => {
+                if (item.href) {
+                  window.location.href = item.href;
+                } else {  // Handle the case where href is not provided
+                  onItemClick(item.label);  
+                }
+              }}
             >
               <span
                 className={`${item.label === activeItem ? "text-green-600" : "text-gray-500"}`}
@@ -87,7 +94,14 @@ const Sidebar = ({
               key={item.label}
               variant="ghost"
               className={`w-full justify-start gap-3 h-9 rounded-xl text-sm font-medium ${item.label === activeItem ? "bg-green-50 text-green-600 hover:bg-green-100" : "text-gray-700 hover:bg-gray-100"}`}
-              onClick={() => onItemClick(item.label)}
+              // onClick={() => onItemClick(item.label)}/
+              onClick={() => {
+                if (item.href) {
+                  window.location.href = item.href;
+                } else {  // Handle the case where href is not provided
+                  onItemClick(item.label);  
+                }
+              }}
             >
               <span
                 className={`${item.label === activeItem ? "text-green-600" : "text-gray-500"}`}
@@ -106,7 +120,14 @@ const Sidebar = ({
             key={item.label}
             variant="ghost"
             className="w-full justify-start gap-3 h-10 rounded-xl text-sm font-medium text-gray-700 hover:bg-gray-100 mb-1.5"
-            onClick={() => onItemClick(item.label)}
+            // onClick={() => onItemClick(item.label)}
+            onClick={() => {
+              if (item.href) {
+                window.location.href = item.href;
+              } else {  // Handle the case where href is not provided
+                onItemClick(item.label);  
+              }
+            }}
           >
             <span className="text-gray-500">{item.icon}</span>
             {item.label}

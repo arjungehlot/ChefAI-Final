@@ -1,4 +1,4 @@
-import { supabase } from "../supabase/supabase";
+import { supabase } from "../supabaseClient"; // Update the path if necessary
 
 export interface Recipe {
   id?: string;

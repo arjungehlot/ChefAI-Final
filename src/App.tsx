@@ -17,6 +17,10 @@ import ContactPage from "./components/pages/contact";
 import CareersPage from "./components/pages/careers";
 import PricingPage from "./components/pages/pricing";
 import VideoDemo from "./components/pages/video-demo";
+import QuickRecipeGenerator from "./components/dashboard/QuickRecipeGenerator";
+import SmartGroceryList from "./components/dashboard/SmartGroceryList";
+import TodayMealPlan from "./components/dashboard/TodayMealPlan";
+import NutritionSummary from "./components/dashboard/NutritionSummary";
 
 function PrivateRoute({ children }: { children: React.ReactNode }) {
   const { user, loading } = useAuth();
@@ -90,6 +94,38 @@ function AppRoutes() {
           element={
             <Layout>
               <CareersPage />
+            </Layout>
+          }
+        />
+        <Route
+          path="/recipe-generator"
+          element={
+            <Layout>
+              <QuickRecipeGenerator />
+            </Layout>
+          }
+        />
+        <Route
+          path="/grocery-list"
+          element={
+            <Layout>
+              <SmartGroceryList />
+            </Layout>
+          }
+        />
+        <Route
+          path="/meal-planner"
+          element={
+            <Layout>
+              <TodayMealPlan />
+            </Layout>
+          }
+        />
+        <Route
+          path="/nutrition"
+          element={
+            <Layout>
+              <NutritionSummary />
             </Layout>
           }
         />
