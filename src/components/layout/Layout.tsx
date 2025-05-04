@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
 
@@ -8,6 +8,11 @@ interface LayoutProps {
 }
 
 const Layout = ({ children, hideFooter = false }: LayoutProps) => {
+  // Ensure scroll to top on component mount
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
     <div className="min-h-screen flex flex-col bg-white">
       <Navbar />

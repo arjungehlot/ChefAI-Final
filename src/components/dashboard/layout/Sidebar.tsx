@@ -34,15 +34,27 @@ const defaultNavItems: NavItem[] = [
 ];
 
 const kitchenItems: NavItem[] = [
-  { icon: <Wand2 size={20} />, label: "Recipe Generator" , href: "/recipe-generator" },
-  { icon: <ShoppingCart size={20} />, label: "Grocery List" , href: "/grocery-list" },
-  { icon: <Calendar size={20} />, label: "Meal Planner", href: "/meal-planner" },
-  { icon: <Activity size={20} />, label: "Nutrition" , href: "/nutrition" },
+  {
+    icon: <Wand2 size={20} />,
+    label: "Recipe Generator",
+    href: "/recipe-generator",
+  },
+  {
+    icon: <ShoppingCart size={20} />,
+    label: "Grocery List",
+    href: "/grocery-list",
+  },
+  {
+    icon: <Calendar size={20} />,
+    label: "Meal Planner",
+    href: "/meal-planner",
+  },
+  { icon: <Activity size={20} />, label: "Nutrition", href: "/nutrition" },
 ];
 
 const defaultBottomItems: NavItem[] = [
-  { icon: <Settings size={20} />, label: "Settings" , href: "/settings" },
-  { icon: <HelpCircle size={20} />, label: "Help" , href: "/help" },
+  { icon: <Settings size={20} />, label: "Settings", href: "/settings" },
+  { icon: <HelpCircle size={20} />, label: "Help", href: "/contact" },
 ];
 
 const Sidebar = ({
@@ -68,8 +80,9 @@ const Sidebar = ({
               onClick={() => {
                 if (item.href) {
                   window.location.href = item.href;
-                } else {  // Handle the case where href is not provided
-                  onItemClick(item.label);  
+                } else {
+                  // Handle the case where href is not provided
+                  onItemClick(item.label);
                 }
               }}
             >
@@ -98,8 +111,9 @@ const Sidebar = ({
               onClick={() => {
                 if (item.href) {
                   window.location.href = item.href;
-                } else {  // Handle the case where href is not provided
-                  onItemClick(item.label);  
+                } else {
+                  // Handle the case where href is not provided
+                  onItemClick(item.label);
                 }
               }}
             >
@@ -124,8 +138,9 @@ const Sidebar = ({
             onClick={() => {
               if (item.href) {
                 window.location.href = item.href;
-              } else {  // Handle the case where href is not provided
-                onItemClick(item.label);  
+              } else {
+                // Handle the case where href is not provided
+                onItemClick(item.label);
               }
             }}
           >

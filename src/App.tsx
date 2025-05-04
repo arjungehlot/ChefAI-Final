@@ -1,5 +1,11 @@
-import { Suspense } from "react";
-import { Navigate, Route, Routes, useRoutes } from "react-router-dom";
+import { Suspense, useEffect } from "react";
+import {
+  Navigate,
+  Route,
+  Routes,
+  useRoutes,
+  useLocation,
+} from "react-router-dom";
 import routes from "tempo-routes";
 import LoginForm from "./components/auth/LoginForm";
 import SignUpForm from "./components/auth/SignUpForm";
@@ -22,6 +28,10 @@ import SmartGroceryList from "./components/dashboard/SmartGroceryList";
 import TodayMealPlan from "./components/dashboard/TodayMealPlan";
 import NutritionSummary from "./components/dashboard/NutritionSummary";
 import AIRecipeGeneratorPreview from "./components/home/AIRecipeGeneratorPreview";
+import RecipeDetail from "./components/pages/recipe-detail";
+import SettingsPage from "./components/pages/settings";
+import UserProfile from "./components/pages/profile";
+import MealCalendar from "./components/pages/meal-calendar";
 
 function PrivateRoute({ children }: { children: React.ReactNode }) {
   const { user, loading } = useAuth();
@@ -31,15 +41,26 @@ function PrivateRoute({ children }: { children: React.ReactNode }) {
   }
 
   if (!user) {
-    return <Navigate to="/" />;
+    return <Navigate to="/login" />;
   }
 
   return <>{children}</>;
 }
 
+function ScrollToTop() {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+
+  return null;
+}
+
 function AppRoutes() {
   return (
     <>
+      <ScrollToTop />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route
@@ -82,6 +103,7 @@ function AppRoutes() {
             </Layout>
           }
         />
+        <Route path="/recipe/:id" element={<RecipeDetail />} />
         <Route
           path="/meal-plans"
           element={
@@ -107,35 +129,27 @@ function AppRoutes() {
           }
         />
         <Route
-          path="/recipe-generator"
-          element={
-            <Layout>
-              <QuickRecipeGenerator />
-            </Layout>
-          }
-        />
-        <Route
           path="/grocery-list"
           element={
-            <Layout>
+            <PrivateRoute>
               <SmartGroceryList />
-            </Layout>
+            </PrivateRoute>
           }
         />
         <Route
           path="/meal-planner"
           element={
-            <Layout>
+            <PrivateRoute>
               <TodayMealPlan />
-            </Layout>
+            </PrivateRoute>
           }
         />
         <Route
           path="/nutrition"
           element={
-            <Layout>
+            <PrivateRoute>
               <NutritionSummary />
-            </Layout>
+            </PrivateRoute>
           }
         />
         <Route
@@ -155,8 +169,36 @@ function AppRoutes() {
             </PrivateRoute>
           }
         />
+        <Route
+          path="/profile"
+          element={
+            <PrivateRoute>
+              <UserProfile />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/settings"
+          element={
+            <PrivateRoute>
+              <SettingsPage />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/meal-calendar"
+          element={
+            <PrivateRoute>
+              <MealCalendar />
+            </PrivateRoute>
+          }
+        />
         <Route path="/success" element={<Success />} />
+
+        {/* Add a catch-all route that redirects to home */}
+        <Route path="*" element={<Navigate to="/" />} />
       </Routes>
+      {/* For the tempo routes */}
       {import.meta.env.VITE_TEMPO === "true" && useRoutes(routes)}
     </>
   );
