@@ -22,6 +22,7 @@ import {
 import { Textarea } from "@/components/ui/textarea";
 import RecipeCardsGrid from "../home/RecipeCardsGrid";
 import WeeklyMealPlannerPreview from "../home/WeeklyMealPlannerPreview";
+import FAQPage from "./faq";
 // import RecipesPage from "./recipes";
 // import CareersPage from "./careers";
 
@@ -821,6 +822,7 @@ export default function LandingPage() {
       {/* <CareersPage /> */}
       <RecipeCardsGrid />
       <WeeklyMealPlannerPreview />
+      <FAQPage />
       
 
       {/* Enhanced Footer */}

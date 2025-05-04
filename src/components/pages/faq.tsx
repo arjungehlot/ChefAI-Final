@@ -42,4 +42,28 @@ export default function FAQPage() {
     },
     {
       question: "How do I cancel my subscription?",
-      answer: "You can cancel your subscription at any time from your account settings. After cancellation, you'll continue to have access to premium features until the end of your current billing
+      answer: "You can cancel your subscription at any time from your account settings. After cancellation, you'll continue to have access to premium features until the end of your current billing cycle."
+    }
+  ];
+
+  return (
+    <div className="p-4 md:mx-28 space-y-4">
+      <h1 className="text-2xl font-bold text-center">Frequently Asked Questions (FAQ)</h1>
+
+      <Accordion type="single" collapsible>
+        {faqs.map((faq, index) => (
+          <AccordionItem key={index} value={`item-${index}`}>
+            <AccordionTrigger className="text-xl font-semibold">{faq.question}</AccordionTrigger>
+            <AccordionContent className="text-gray-700">{faq.answer}</AccordionContent>
+          </AccordionItem>
+        ))}
+      </Accordion>
+
+      <div className="flex justify-center mt-6">
+        <Link to="/pricing">
+          <Button variant="outline" className="px-6 py-2 text-lg">See Pricing Plans</Button>
+        </Link>
+      </div>
+    </div>
+  );
+}

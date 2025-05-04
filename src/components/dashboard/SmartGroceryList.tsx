@@ -122,7 +122,7 @@ const SmartGroceryList = () => {
             <Input
               type="text"
               placeholder="Search items..."
-              className="w-40 sm:w-56 white rounded-md border border-white px-3 py-2 text-sm"
+              className="w-40 sm:w-56 p-3 text-sm text-gray-700 bg-white rounded-md border border-gray-300 shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all ease-in-out duration-300 placeholder-gray-400 hover:border-gray-400"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
             />
