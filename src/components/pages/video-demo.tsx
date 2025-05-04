@@ -1,51 +1,44 @@
-import React, { useState, useRef } from "react";
+import React from "react";
 import Layout from "../layout/Layout";
-import { Button } from "../ui/button";
-import { Slider } from "../ui/slider";
-import { Volume2, VolumeX, Play, Pause } from "lucide-react";
 
-const VideoDemo = () => {
-  const videoRef = useRef<HTMLVideoElement>(null);
-  const [isPlaying, setIsPlaying] = useState(false);
-  const [volume, setVolume] = useState(0.5);
-  const [isMuted, setIsMuted] = useState(false);
-
-  // Sample cooking video URL - replace with your actual video
-  const videoUrl =
-    "https://sample-videos.com/video123/mp4/720/big_buck_bunny_720p_1mb.mp4";
-
-  const togglePlay = () => {
-    if (videoRef.current) {
-      if (isPlaying) {
-        videoRef.current.pause();
-      } else {
-        videoRef.current.play();
-      }
-      setIsPlaying(!isPlaying);
-    }
-  };
-
-  const toggleMute = () => {
-    if (videoRef.current) {
-      videoRef.current.muted = !isMuted;
-      setIsMuted(!isMuted);
-    }
-  };
-
-  const handleVolumeChange = (value: number[]) => {
-    const newVolume = value[0];
-    setVolume(newVolume);
-    if (videoRef.current) {
-      videoRef.current.volume = newVolume;
-      if (newVolume === 0) {
-        setIsMuted(true);
-        videoRef.current.muted = true;
-      } else if (isMuted) {
-        setIsMuted(false);
-        videoRef.current.muted = false;
-      }
-    }
-  };
+const CookingVideosPage = () => {
+  const additionalVideos = [
+    {
+      youtubeEmbedUrl: "https://www.youtube.com/embed/nt1f0IegTWQ?si=6RjTUetCmv__0MWe",
+      title: "chana dal tadka recipe",
+      description:
+        "Learn how to make a quick and flavorful chicken curry using simple ingredients.",
+      tags: ["Chicken", "Indian", "Spicy"],
+    },
+    {
+      youtubeEmbedUrl: "https://www.youtube.com/embed/cLGIs2Qh54Q?si=dZTOopL4KT9hHOVv&amp",
+      title: "Fluffy Pancakes",
+      description:
+        "Whip up soft, fluffy pancakes perfect for a cozy weekend breakfast.",
+      tags: ["Pancake", "Breakfast", "Sweet"],
+    },
+    {
+      youtubeEmbedUrl: "https://www.youtube.com/embed/PlNE7Mrlvcg?si=vXXcMEczrCOtJheG",
+      title: "Healthy Green Salad",
+      description:
+        "A crisp and refreshing salad loaded with greens, veggies, and a tangy dressing.",
+      tags: ["Salad", "Vegan", "Quick"],
+    },
+    {
+      youtubeEmbedUrl: "https://www.youtube.com/embed/a03U45jFxOI",
+      title: "Butter Chicken",
+      description:
+        "Classic Indian butter chicken recipe with creamy tomato gravy and rich spices.",
+      tags: ["Butter Chicken", "Rich", "Classic"],
+    },
+    {
+      youtubeEmbedUrl: "https://www.youtube.com/embed/aQHr9Zsnzbw?si=8PHY_U3zocnaid7E&amp",
+      title: "Quick Veg Noodles",
+      description:
+        "Spicy and fast veg noodles recipe for instant satisfaction.",
+      tags: ["Noodles", "Quick", "Spicy"],
+    },
+  ];
 
   return (
     <Layout>
@@ -54,79 +47,79 @@ const VideoDemo = () => {
           Cooking Video Demonstration
         </h1>
         <p className="text-lg text-gray-700 mb-8 text-center">
-          Watch our step-by-step guide on how to prepare delicious dishes with
-          CheafAI
+          Watch our step-by-step guide on how to prepare delicious dishes with CheafAI
         </p>
 
+        {/* Main Video Section */}
         <div className="max-w-4xl mx-auto bg-gray-100 rounded-lg overflow-hidden shadow-xl">
           <div className="relative">
-            <video
-              ref={videoRef}
-              className="w-full h-auto"
-              src={videoUrl}
-              poster="https://images.unsplash.com/photo-1556911220-bff31c812dba?w=800&q=80"
-            >
-              Your browser does not support the video tag.
-            </video>
-
-            <div className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-50 p-4 flex items-center space-x-4">
-              <Button
-                variant="ghost"
-                size="icon"
-                className="text-white hover:bg-white hover:bg-opacity-20"
-                onClick={togglePlay}
-              >
-                {isPlaying ? <Pause size={24} /> : <Play size={24} />}
-              </Button>
-
-              <div className="flex items-center space-x-2 flex-1">
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  className="text-white hover:bg-white hover:bg-opacity-20"
-                  onClick={toggleMute}
+            <iframe
+              width="100%"
+              height="415"
+              src="https://www.youtube.com/embed/Fb_IljnhwTo?rel=0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              referrerPolicy="strict-origin-when-cross-origin"
+              allowFullScreen
+            ></iframe>
+          </div>
+          <div className="p-6">
+            <h2 className="text-xl font-semibold mb-4">How to Cook Perfect Pasta</h2>
+            <p className="text-gray-700 mb-4">
+              This video demonstrates the essential techniques for cooking perfect pasta every time.
+              Learn about proper water ratios, salting, timing, and how to pair with the right sauce.
+            </p>
+            <div className="flex flex-wrap gap-2 mb-4">
+              {["Pasta", "Italian", "Beginner"].map((tag) => (
+                <span
+                  key={tag}
+                  className="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm"
                 >
-                  {isMuted ? <VolumeX size={20} /> : <Volume2 size={20} />}
-                </Button>
-                <div className="w-24">
-                  <Slider
-                    defaultValue={[0.5]}
-                    max={1}
-                    step={0.01}
-                    value={[volume]}
-                    onValueChange={handleVolumeChange}
-                    className="cursor-pointer"
-                  />
+                  {tag}
+                </span>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Additional Videos */}
+        <h2 className="text-2xl font-bold mt-12 mb-6 text-center">More Recipes for You</h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+          {additionalVideos.map((video, index) => (
+            <div
+              key={index}
+              className="bg-white rounded-xl shadow-lg overflow-hidden transition-transform duration-300 transform hover:scale-105"
+            >
+              <div className="relative group">
+                <iframe
+                  width="100%"
+                  height="215"
+                  src={video.youtubeEmbedUrl}
+                  title={video.title}
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  referrerPolicy="strict-origin-when-cross-origin"
+                  allowFullScreen
+                ></iframe>
+              </div>
+              <div className="p-4">
+                <h3 className="text-lg font-semibold mb-2">{video.title}</h3>
+                <p className="text-gray-600 text-sm mb-3">{video.description}</p>
+                <div className="flex flex-wrap gap-1">
+                  {video.tags.map((tag, idx) => (
+                    <span
+                      key={idx}
+                      className="px-2 py-1 bg-green-100 text-green-800 rounded-full text-xs"
+                    >
+                      {tag}
+                    </span>
+                  ))}
                 </div>
               </div>
             </div>
-          </div>
-
-          <div className="p-6">
-            <h2 className="text-xl font-semibold mb-4">
-              How to Cook Perfect Pasta
-            </h2>
-            <p className="text-gray-700 mb-4">
-              This video demonstrates the essential techniques for cooking
-              perfect pasta every time. Learn about proper water ratios,
-              salting, timing, and how to pair with the right sauce.
-            </p>
-            <div className="flex flex-wrap gap-2 mb-4">
-              <span className="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm">
-                Pasta
-              </span>
-              <span className="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm">
-                Italian
-              </span>
-              <span className="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm">
-                Beginner
-              </span>
-            </div>
-          </div>
+          ))}
         </div>
       </div>
     </Layout>
   );
 };
 
-export default VideoDemo;
+export default CookingVideosPage;

@@ -131,7 +131,7 @@ export default function RecipesPage() {
     <div className="min-h-screen bg-white">
       {/* Header is included in the App layout */}
 
-      <main className="pt-24 pb-20 px-6">
+      <main className="pt-14 pb-20 px-6">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-12">
             <h1 className="text-4xl font-bold text-gray-900 mb-4">

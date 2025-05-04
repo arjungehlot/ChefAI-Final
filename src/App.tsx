@@ -21,6 +21,7 @@ import QuickRecipeGenerator from "./components/dashboard/QuickRecipeGenerator";
 import SmartGroceryList from "./components/dashboard/SmartGroceryList";
 import TodayMealPlan from "./components/dashboard/TodayMealPlan";
 import NutritionSummary from "./components/dashboard/NutritionSummary";
+import AIRecipeGeneratorPreview from "./components/home/AIRecipeGeneratorPreview";
 
 function PrivateRoute({ children }: { children: React.ReactNode }) {
   const { user, loading } = useAuth();
@@ -54,6 +55,14 @@ function AppRoutes() {
           element={
             <Layout>
               <SignUpForm />
+            </Layout>
+          }
+        />
+        <Route
+          path="/recipe-generator"
+          element={
+            <Layout>
+              <AIRecipeGeneratorPreview />
             </Layout>
           }
         />
