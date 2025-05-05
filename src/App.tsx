@@ -131,25 +131,25 @@ function AppRoutes() {
         <Route
           path="/grocery-list"
           element={
-            <PrivateRoute>
+            <Layout>
               <SmartGroceryList />
-            </PrivateRoute>
+            </Layout>
           }
         />
         <Route
           path="/meal-planner"
           element={
-            <PrivateRoute>
+            <Layout>
               <TodayMealPlan />
-            </PrivateRoute>
+            </Layout>
           }
         />
         <Route
           path="/nutrition"
           element={
-            <PrivateRoute>
+            <Layout>
               <NutritionSummary />
-            </PrivateRoute>
+            </Layout>
           }
         />
         <Route

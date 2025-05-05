@@ -506,7 +506,7 @@ export default function LandingPage() {
         </section>
 
         {/* Recipe Generator Demo */}
-        <section className="grid grid-cols-1 md:grid-cols-2 gap-6 p-6 max-w-7xl mx-auto">
+        {/* <section className="grid grid-cols-1 md:grid-cols-2 gap-6 p-6 max-w-7xl mx-auto">
           <div className="bg-gradient-to-br from-green-50 to-blue-50 rounded-3xl p-8 text-left shadow-lg">
             <h2 className="text-3xl font-semibold tracking-tight mb-2">
               Input Your Ingredients
@@ -823,7 +823,7 @@ export default function LandingPage() {
               )}
             </div>
           </div>
-        </section>
+        </section> */}
       </main>
 
       {/* <CareersPage /> */}

@@ -30,7 +30,7 @@ const NutritionSummary = ({
   const goalPercentage = Math.round((goals.achieved / goals.total) * 100);
 
   return (
-    <Card className="bg-white/90 backdrop-blur-sm border border-gray-100 rounded-2xl shadow-sm overflow-hidden">
+    <Card className="bg-white/90 backdrop-blur-sm border mx-32 mt-8 border-gray-100 rounded-2xl shadow-sm overflow-hidden">
       <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
         <CardTitle className="text-base font-medium text-gray-900">
           Nutrition Summary

@@ -1,4 +1,10 @@
-import { createContext, useContext, useEffect, useState } from "react";
+import React, {
+  createContext,
+  useContext,
+  useEffect,
+  useState,
+  ReactNode,
+} from "react";
 import { User } from "@supabase/supabase-js";
 import { supabase } from "./supabase";
 import { useToast } from "@/components/ui/use-toast";
@@ -15,20 +21,20 @@ type AuthContextType = {
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
-export function AuthProvider({ children }: { children: React.ReactNode }) {
+export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
   const [isNewUser, setIsNewUser] = useState(false);
   const { toast } = useToast();
 
   useEffect(() => {
-    // Check active sessions and sets the user
+    // Get current session
     supabase.auth.getSession().then(({ data: { session } }) => {
       setUser(session?.user ?? null);
       setLoading(false);
     });
 
-    // Listen for changes on auth state (signed in, signed out, etc.)
+    // Listen to auth state changes
     const {
       data: { subscription },
     } = supabase.auth.onAuthStateChange((event, session) => {
@@ -46,21 +52,16 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
           duration: 5000,
         });
       }
-
-      if (event === "SIGNED_UP" as AuthChangeEvent) {
-        setIsNewUser(true);
-        toast({
-          title: "Account Created Successfully",
-          description: "Please check your email to confirm your account.",
-          duration: 5000,
-        });
-      }
     });
 
     return () => subscription.unsubscribe();
   }, [toast]);
 
-  const signUp = async (email: string, password: string, fullName: string) => {
+  const signUp = async (
+    email: string,
+    password: string,
+    fullName: string
+  ): Promise<void> => {
     const { error } = await supabase.auth.signUp({
       email,
       password,
@@ -70,10 +71,18 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         },
       },
     });
+
     if (error) throw error;
+
+    setIsNewUser(true);
+    toast({
+      title: "Account Created Successfully",
+      description: "Please check your email to confirm your account.",
+      duration: 5000,
+    });
   };
 
-  const signIn = async (email: string, password: string) => {
+  const signIn = async (email: string, password: string): Promise<void> => {
     const { error } = await supabase.auth.signInWithPassword({
       email,
       password,
@@ -81,7 +90,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     if (error) throw error;
   };
 
-  const signInWithGoogle = async () => {
+  const signInWithGoogle = async (): Promise<void> => {
     const { error } = await supabase.auth.signInWithOAuth({
       provider: "google",
       options: {
@@ -91,7 +100,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     if (error) throw error;
   };
 
-  const signOut = async () => {
+  const signOut = async (): Promise<void> => {
     const { error } = await supabase.auth.signOut();
     if (error) throw error;
   };
@@ -113,7 +122,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   );
 }
 
-export function useAuth() {
+export function useAuth(): AuthContextType {
   const context = useContext(AuthContext);
   if (context === undefined) {
     throw new Error("useAuth must be used within an AuthProvider");

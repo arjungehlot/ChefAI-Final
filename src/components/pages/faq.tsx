@@ -47,7 +47,7 @@ export default function FAQPage() {
   ];
 
   return (
-    <div className="p-4 md:mx-28 space-y-4">
+    <div className="p-4 md:mx-32 space-y-4">
       <h1 className="text-2xl font-bold text-center">Frequently Asked Questions (FAQ)</h1>
 
       <Accordion type="single" collapsible>

@@ -56,8 +56,9 @@ const SearchRecipes: React.FC = () => {
     setLoading(false);
   };
 
+
   return (
-    <div className="mx-28 bg-gray-50 p-6 md:p-10 font-sans">
+    <div className="mx-28 p-6 md:p-10 font-sans">
       <h1 className="text-3xl font-bold text-center mb-6 text-black">Search Recipes by Ingredients</h1>
 
       <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-8">
@@ -66,11 +67,11 @@ const SearchRecipes: React.FC = () => {
           value={ingredients}
           onChange={(e) => setIngredients(e.target.value)}
           placeholder="e.g., chicken, tomato"
-          className="w-full sm:w-96 px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-400"
+          className="w-full sm:w-96 px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-green-400"
         />
         <button
           onClick={searchRecipes}
-          className="bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-2 rounded-lg shadow transition duration-300"
+          className="bg-green-600 hover:bg-green-700 text-white px-6 py-2 rounded-lg shadow transition duration-300"
         >
           Search
         </button>
@@ -87,7 +88,7 @@ const SearchRecipes: React.FC = () => {
               alt={recipe.title}
               className="w-full h-48 object-cover rounded-md mb-4"
             />
-            <h3 className="text-xl font-semibold mb-2 text-indigo-600">{recipe.title}</h3>
+            <h3 className="text-xl font-semibold mb-2 text-green-600">{recipe.title}</h3>
             <div className="ingredients mb-3">
               <strong>Ingredients:</strong>
               <ul className="list-disc list-inside text-sm text-gray-700">
