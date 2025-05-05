@@ -7,14 +7,8 @@ import {
 } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import {
-  Save,
-  Calendar,
-  Printer,
-  Clock,
-  Star,
-  ChevronRight,
-} from "lucide-react";
+import { Calendar, Printer, Clock, Star, ChevronRight } from "lucide-react";
+import SaveRecipeButton from "./SaveRecipeButton";
 import { Link } from "react-router-dom";
 
 interface RecipeCardProps {
@@ -90,13 +84,20 @@ export default function RecipeCard({
         <p className="text-gray-600 text-sm">{description}</p>
       </CardContent>
       <CardFooter className="flex justify-between pt-3 border-t border-gray-100">
-        <Button
+        <SaveRecipeButton
+          recipeId={id?.toString() || ""}
+          title={title}
+          cookingTime={cookingTime}
+          calories={calories}
+          dietType={dietType}
+          image={image}
+          description={description}
+          rating={rating}
+          difficulty={difficulty}
           variant="outline"
           size="sm"
-          className="text-xs flex items-center gap-1 rounded-full border-green-200 text-green-700 hover:bg-green-50 hover:text-green-800 hover:border-green-300"
-        >
-          <Save className="h-3 w-3" /> Save
-        </Button>
+          className="text-xs rounded-full border-green-200 text-green-700 hover:bg-green-50 hover:text-green-800 hover:border-green-300"
+        />
         <Button
           variant="outline"
           size="sm"
