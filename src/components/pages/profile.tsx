@@ -90,10 +90,10 @@ const UserProfile = () => {
 
   // Mock data for user stats
   const userStats = {
-    recipesCooked: 27,
-    favoriteRecipes: savedRecipes.length,
-    mealPlans: 8,
-    streak: 5,
+    recipesCooked: 0,
+    favoriteRecipes: 0,
+    mealPlans: 0,
+    streak: 0,
   };
 
   return (
