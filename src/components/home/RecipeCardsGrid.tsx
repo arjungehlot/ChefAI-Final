@@ -257,13 +257,13 @@ export default function RecipeCardsGrid() {
         </div>
 
         <Tabs defaultValue="trending" className="w-full">
-          <div className="flex justify-center mb-8">
-            <TabsList className="bg-green-50">
+          <div className="mx-4 mb-8">
+            <TabsList className="bg-white flex flex-wrap justify-center gap-2 p-2 rounded-lg ">
               {RECIPE_CATEGORIES.map((category) => (
                 <TabsTrigger
                   key={category.id}
                   value={category.id}
-                  className="data-[state=active]:bg-green-600 data-[state=active]:text-white px-6 py-2"
+                  className="data-[state=active]:bg-green-600 data-[state=active]:text-white px-4 py-2 text-sm sm:text-base rounded-md transition"
                   onClick={() => setActiveTab(category.id)}
                 >
                   {category.name}
@@ -276,7 +276,7 @@ export default function RecipeCardsGrid() {
             <TabsContent
               key={category.id}
               value={category.id}
-              className="w-full"
+              className="w-full mt-28"
             >
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 {category.recipes.map((recipe, index) => (

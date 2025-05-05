@@ -104,7 +104,9 @@ const UserProfile = () => {
           <div className="flex flex-col md:flex-row items-center md:items-start gap-6">
             <Avatar className="h-24 w-24 border-4 border-white shadow-lg">
               <AvatarImage
-                src={`https://api.dicebear.com/7.x/avataaars/svg?seed=${user?.email || "default"}`}
+                src={`https://api.dicebear.com/7.x/avataaars/svg?seed=${
+                  user?.email || "Chef"
+                }`}
               />
               <AvatarFallback>{user?.email?.[0].toUpperCase()}</AvatarFallback>
             </Avatar>
@@ -160,27 +162,39 @@ const UserProfile = () => {
           onValueChange={setActiveTab}
           className="space-y-6"
         >
-          <TabsList className="mb-4">
-            <TabsTrigger value="saved" className="flex items-center gap-2">
+          <TabsList className="mb-4 flex flex-wrap justify-start gap-2 sm:justify-center md:gap-4">
+            <TabsTrigger
+              value="saved"
+              className="flex items-center gap-2 px-3 py-2 text-sm sm:text-base rounded-md hover:bg-gray-100 transition"
+            >
               <Heart size={16} />
               Saved Recipes
             </TabsTrigger>
-            <TabsTrigger value="history" className="flex items-center gap-2">
+            <TabsTrigger
+              value="history"
+              className="flex items-center gap-2 px-3 py-2 text-sm sm:text-base rounded-md hover:bg-gray-100 transition"
+            >
               <Clock size={16} />
               Cooking History
             </TabsTrigger>
-            <TabsTrigger value="mealplans" className="flex items-center gap-2">
+            <TabsTrigger
+              value="mealplans"
+              className="flex items-center gap-2 px-3 py-2 text-sm sm:text-base rounded-md hover:bg-gray-100 transition"
+            >
               <Calendar size={16} />
               Meal Plans
             </TabsTrigger>
-            <TabsTrigger value="cookbook" className="flex items-center gap-2">
+            <TabsTrigger
+              value="cookbook"
+              className="flex items-center gap-2 px-3 py-2 text-sm sm:text-base rounded-md hover:bg-gray-100 transition"
+            >
               <BookOpen size={16} />
               My Cookbook
             </TabsTrigger>
           </TabsList>
 
           <TabsContent value="saved" className="space-y-6">
-            <h2 className="text-2xl font-semibold">Saved Recipes</h2>
+            <h2 className="text-2xl font-semibold pt-8 ">Saved Recipes</h2>
             {savedRecipes.length > 0 ? (
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {savedRecipes.map((recipe) => (
@@ -215,7 +229,7 @@ const UserProfile = () => {
           </TabsContent>
 
           <TabsContent value="history" className="space-y-6">
-            <h2 className="text-2xl font-semibold">Cooking History</h2>
+            <h2 className="text-2xl font-semibold pt-8">Cooking History</h2>
             {cookingHistory.length > 0 ? (
               <div className="space-y-4">
                 {cookingHistory.map((recipe) => (
@@ -283,7 +297,7 @@ const UserProfile = () => {
           </TabsContent>
 
           <TabsContent value="mealplans" className="space-y-6">
-            <h2 className="text-2xl font-semibold">Meal Plans</h2>
+            <h2 className="text-2xl font-semibold pt-8">Meal Plans</h2>
             <div className="text-center py-12 bg-gray-50 rounded-xl">
               <Calendar size={48} className="mx-auto text-gray-300 mb-4" />
               <h3 className="text-xl font-medium text-gray-700 mb-2">
@@ -299,7 +313,7 @@ const UserProfile = () => {
           </TabsContent>
 
           <TabsContent value="cookbook" className="space-y-6">
-            <h2 className="text-2xl font-semibold">My Cookbook</h2>
+            <h2 className="text-2xl font-semibold pt-8">My Cookbook</h2>
             <div className="text-center py-12 bg-gray-50 rounded-xl">
               <BookOpen size={48} className="mx-auto text-gray-300 mb-4" />
               <h3 className="text-xl font-medium text-gray-700 mb-2">

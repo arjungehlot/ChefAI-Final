@@ -58,7 +58,7 @@ const SearchRecipes: React.FC = () => {
 
 
   return (
-    <div className="mx-28 p-6 md:p-10 font-sans">
+    <div className="md:mx-28 p-6 md:p-10 font-sans">
       <h1 className="text-3xl font-bold text-center mb-6 text-black">Search Recipes by Ingredients</h1>
 
       <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-8">

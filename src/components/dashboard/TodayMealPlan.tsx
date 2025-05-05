@@ -66,12 +66,10 @@ const TodayMealPlan = () => {
     setMeals((prev) => {
       const existingIndex = prev.findIndex((m) => m.id === editingMeal.id);
       if (existingIndex !== -1) {
-        // Update
         const updated = [...prev];
         updated[existingIndex] = editingMeal;
         return updated;
       }
-      // Add
       return [...prev, { ...editingMeal, id: Date.now().toString() }];
     });
 
@@ -80,10 +78,10 @@ const TodayMealPlan = () => {
   };
 
   return (
-    <div className="p-6 space-y-6 text-gray-800">
-      {/* SECTION 1: Header + Add Meal */}
+    <div className="pt-4 p-2 md:p-6 space-y-6 text-gray-800 max-w-4xl mx-auto">
+      {/* Header Section */}
       <Card className="bg-white/90 border border-gray-100 rounded-2xl shadow-lg">
-        <CardHeader className="flex justify-between items-center">
+        <CardHeader className="flex flex-wrap justify-between items-center gap-4">
           <CardTitle className="text-lg font-semibold">Today's Meal Plan 🍽️</CardTitle>
           <Button
             variant="outline"
@@ -109,14 +107,14 @@ const TodayMealPlan = () => {
           {meals.map((meal) => (
             <div
               key={meal.id}
-              className="flex items-center gap-4 p-2 rounded-xl hover:bg-gray-100 group transition"
+              className="flex flex-wrap sm:flex-nowrap items-center gap-4 p-2 rounded-xl hover:bg-gray-100 group transition"
             >
               <img
                 src={meal.image}
                 alt={meal.name}
                 className="w-14 h-14 rounded-xl object-cover"
               />
-              <div className="flex-1">
+              <div className="flex-1 min-w-[150px]">
                 <p className="text-xs text-gray-500 flex items-center gap-1">
                   <Clock className="h-3 w-3" />
                   {meal.time}
@@ -152,8 +150,8 @@ const TodayMealPlan = () => {
             <span className="text-sm text-blue-600">{waterCups} cups</span>
           </CardTitle>
         </CardHeader>
-        <CardContent className="flex gap-3 items-center">
-          <Button onClick={() => setWaterCups(waterCups - 1)} disabled={waterCups === 0}>
+        <CardContent className="flex items-center gap-4 flex-wrap sm:flex-nowrap">
+          <Button onClick={() => setWaterCups(Math.max(0, waterCups - 1))} disabled={waterCups === 0}>
             -
           </Button>
           <Droplet className="text-blue-500 w-6 h-6" />
@@ -161,7 +159,7 @@ const TodayMealPlan = () => {
         </CardContent>
       </Card>
 
-      {/* Summary */}
+      {/* Summary Section */}
       <Card className="bg-green-50 border border-green-200 rounded-2xl">
         <CardHeader>
           <CardTitle className="text-green-700">Summary 🧮</CardTitle>
@@ -172,81 +170,68 @@ const TodayMealPlan = () => {
         </CardContent>
       </Card>
 
-      {/* Tip */}
-      <Card className="bg-yellow-50 border border-yellow-200 rounded-2xl">
-        <CardHeader>
-          <CardTitle className="text-yellow-800">Tip of the Day 🌟</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <p className="text-sm">
-            Don't skip breakfast. It helps kickstart your metabolism and gives energy.
-          </p>
-        </CardContent>
-      </Card>
+      {/* View Recipe Dialog */}
+      <Dialog open={!!showRecipe} onOpenChange={() => setShowRecipe(null)}>
+        <DialogContent className="max-w-sm">
+          <div className="text-center space-y-2">
+            <h2 className="text-lg font-semibold">{showRecipe?.name}</h2>
+            <img src={showRecipe?.image} alt={showRecipe?.name} className="w-full rounded-lg" />
+            <p className="text-sm text-gray-700">{showRecipe?.recipe}</p>
+            <p className="text-sm text-gray-500 mt-1">Calories: {showRecipe?.calories}</p>
+          </div>
+        </DialogContent>
+      </Dialog>
 
-      {/* Snack Suggestions */}
-      <Card className="bg-purple-50 border border-purple-200 rounded-2xl">
-        <CardHeader>
-          <CardTitle className="text-purple-800">Quick Snack Suggestions 🍌</CardTitle>
-        </CardHeader>
-        <CardContent className="text-sm text-gray-700 space-y-1">
-          <li>Fruit smoothie with chia seeds</li>
-          <li>Peanut butter & banana toast</li>
-          <li>Handful of almonds</li>
-        </CardContent>
-      </Card>
-
-      {/* View Recipe Modal */}
-      {showRecipe && (
-        <Dialog open={!!showRecipe} onOpenChange={() => setShowRecipe(null)}>
-          <DialogContent>
-            <div className="flex justify-between items-center mb-4">
-              <h2 className="text-lg font-bold">{showRecipe.name}</h2>
-              <Button size="icon" variant="ghost" onClick={() => setShowRecipe(null)}>
-                <X />
+      {/* Add/Edit Meal Dialog */}
+      <Dialog open={isAddEditOpen} onOpenChange={setIsAddEditOpen}>
+        <DialogContent className="max-w-md">
+          <div className="space-y-4">
+            <h2 className="text-lg font-semibold">{editingMeal?.id ? "Edit Meal" : "Add Meal"}</h2>
+            <Input
+              placeholder="Meal Name"
+              value={editingMeal?.name || ""}
+              onChange={(e) =>
+                setEditingMeal((prev) => (prev ? { ...prev, name: e.target.value } : null))
+              }
+            />
+            <Input
+              placeholder="Image URL"
+              value={editingMeal?.image || ""}
+              onChange={(e) =>
+                setEditingMeal((prev) => (prev ? { ...prev, image: e.target.value } : null))
+              }
+            />
+            <Input
+              placeholder="Time (e.g., 08:00)"
+              value={editingMeal?.time || ""}
+              onChange={(e) =>
+                setEditingMeal((prev) => (prev ? { ...prev, time: e.target.value } : null))
+              }
+            />
+            <Input
+              placeholder="Recipe"
+              value={editingMeal?.recipe || ""}
+              onChange={(e) =>
+                setEditingMeal((prev) => (prev ? { ...prev, recipe: e.target.value } : null))
+              }
+            />
+            <Input
+              placeholder="Calories"
+              type="number"
+              value={editingMeal?.calories || ""}
+              onChange={(e) =>
+                setEditingMeal((prev) => (prev ? { ...prev, calories: Number(e.target.value) } : null))
+              }
+            />
+            <div className="flex justify-end gap-2">
+              <Button variant="ghost" onClick={() => setIsAddEditOpen(false)}>
+                Cancel
+              </Button>
+              <Button onClick={handleSaveMeal}>
+                Save
               </Button>
             </div>
-            <img src={showRecipe.image} alt={showRecipe.name} className="rounded-xl w-full" />
-            <p className="mt-4 text-sm text-gray-700">{showRecipe.recipe}</p>
-          </DialogContent>
-        </Dialog>
-      )}
-
-      {/* Add/Edit Modal */}
-      <Dialog open={isAddEditOpen} onOpenChange={setIsAddEditOpen}>
-        <DialogContent className="space-y-4">
-          <h2 className="text-lg font-semibold">
-            {editingMeal?.id ? "Edit Meal" : "Add New Meal"}
-          </h2>
-          <Input
-            placeholder="Meal name"
-            value={editingMeal?.name || ""}
-            onChange={(e) => setEditingMeal((m) => ({ ...m!, name: e.target.value }))}
-          />
-          <Input
-            placeholder="Image URL"
-            value={editingMeal?.image || ""}
-            onChange={(e) => setEditingMeal((m) => ({ ...m!, image: e.target.value }))}
-          />
-          <Input
-            placeholder="Time (e.g. 08:00)"
-            value={editingMeal?.time || ""}
-            onChange={(e) => setEditingMeal((m) => ({ ...m!, time: e.target.value }))}
-          />
-          <Input
-            placeholder="Calories"
-            type="number"
-            value={editingMeal?.calories || ""}
-            onChange={(e) => setEditingMeal((m) => ({ ...m!, calories: parseInt(e.target.value) }))}
-          />
-          <Input
-            placeholder="Recipe"
-            value={editingMeal?.recipe || ""}
-            onChange={(e) => setEditingMeal((m) => ({ ...m!, recipe: e.target.value }))}
-          />
-          <Button onClick={handleSaveMeal} className="w-full">
-            {editingMeal?.id ? "Update Meal" : "Add Meal"}
-          </Button>
+          </div>
         </DialogContent>
       </Dialog>
     </div>

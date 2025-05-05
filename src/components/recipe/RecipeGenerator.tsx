@@ -22,7 +22,7 @@ import {
 import {
   generateRecipeFromIngredients,
   RecipeResponse,
-} from "@/services/openai-service";
+} from "../../services/openai-service";
 import RecipeCard from "./RecipeCard";
 
 interface RecipeGeneratorProps {

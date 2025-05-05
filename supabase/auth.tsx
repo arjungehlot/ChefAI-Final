@@ -49,7 +49,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
           title: "Email Verification Required",
           description:
             "Please check your email to confirm your account before signing in.",
-          duration: 5000,
+          duration: 50000,
         });
       }
     });

@@ -268,7 +268,7 @@ export default function LandingPage() {
 
       <main className="pt-12 overflow-hidden">
         {/* Enhanced Hero section */}
-        <section className="pt-32 pb-20 bg-gradient-to-b from-green-50 to-white">
+        <section className="md:pt-32 pt-20 pb-20 bg-gradient-to-b from-green-50 to-white">
           <div className="max-w-6xl mx-auto px-6">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
               <div className="text-left space-y-6">

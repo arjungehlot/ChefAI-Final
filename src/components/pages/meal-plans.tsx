@@ -23,166 +23,171 @@ export default function MealPlansPage() {
           </div>
 
           {user ? (
-            <div className="bg-white rounded-xl shadow-lg p-6 border border-gray-100">
-              <Tabs defaultValue="weekly" className="w-full">
-                <TabsList className="grid w-full grid-cols-3 mb-8">
-                  <TabsTrigger value="weekly">Weekly Plan</TabsTrigger>
-                  <TabsTrigger value="templates">Plan Templates</TabsTrigger>
-                  <TabsTrigger value="history">History</TabsTrigger>
-                </TabsList>
-                <TabsContent value="weekly" className="space-y-6">
-                  <div className="grid grid-cols-7 gap-4">
-                    {[
-                      "Monday",
-                      "Tuesday",
-                      "Wednesday",
-                      "Thursday",
-                      "Friday",
-                      "Saturday",
-                      "Sunday",
-                    ].map((day) => (
-                      <div
-                        key={day}
-                        className="border border-gray-200 rounded-lg p-4"
-                      >
-                        <h3 className="font-medium text-gray-800 mb-2">
-                          {day}
-                        </h3>
-                        <div className="space-y-3">
-                          <div className="bg-green-50 p-2 rounded-md">
-                            <span className="text-xs font-medium text-gray-500 block">
-                              Breakfast
-                            </span>
-                            <span className="text-sm text-gray-800">
-                              Greek Yogurt Bowl
-                            </span>
-                          </div>
-                          <div className="bg-blue-50 p-2 rounded-md">
-                            <span className="text-xs font-medium text-gray-500 block">
-                              Lunch
-                            </span>
-                            <span className="text-sm text-gray-800">
-                              Quinoa Salad
-                            </span>
-                          </div>
-                          <div className="bg-purple-50 p-2 rounded-md">
-                            <span className="text-xs font-medium text-gray-500 block">
-                              Dinner
-                            </span>
-                            <span className="text-sm text-gray-800">
-                              Grilled Salmon
-                            </span>
-                          </div>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                  <div className="flex justify-center gap-4 mt-6">
-                    <Button className="bg-gradient-to-r from-green-600 to-green-500 hover:from-green-700 hover:to-green-600">
-                      Generate New Plan
-                    </Button>
-                    <Button
-                      variant="outline"
-                      className="border-green-200 text-green-700 hover:bg-green-50"
-                    >
-                      Export Plan
-                    </Button>
-                  </div>
-                </TabsContent>
-                <TabsContent value="templates" className="space-y-6">
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    {[
-                      "Keto Week",
-                      "Vegetarian Basics",
-                      "High Protein",
-                      "Family Friendly",
-                      "Budget Meals",
-                      "Quick & Easy",
-                    ].map((template) => (
-                      <div
-                        key={template}
-                        className="border border-gray-200 rounded-lg p-4 hover:border-green-300 hover:shadow-md transition-all cursor-pointer"
-                      >
-                        <h3 className="font-medium text-gray-800 mb-2">
-                          {template}
-                        </h3>
-                        <p className="text-sm text-gray-600 mb-4">
-                          A curated meal plan focused on{" "}
-                          {template.toLowerCase()} recipes.
-                        </p>
-                        <Button
-                          variant="outline"
-                          size="sm"
-                          className="w-full border-green-200 text-green-700 hover:bg-green-50"
-                        >
-                          Use Template
-                        </Button>
-                      </div>
-                    ))}
-                  </div>
-                </TabsContent>
-                <TabsContent value="history" className="space-y-6">
-                  <div className="space-y-4">
-                    {[
-                      "May 1-7, 2023",
-                      "April 24-30, 2023",
-                      "April 17-23, 2023",
-                    ].map((week) => (
-                      <div
-                        key={week}
-                        className="border border-gray-200 rounded-lg p-4 hover:border-green-300 hover:shadow-md transition-all"
-                      >
-                        <div className="flex justify-between items-center">
-                          <h3 className="font-medium text-gray-800">{week}</h3>
-                          <div className="flex gap-2">
-                            <Button
-                              variant="outline"
-                              size="sm"
-                              className="border-green-200 text-green-700 hover:bg-green-50"
-                            >
-                              View
-                            </Button>
-                            <Button
-                              variant="outline"
-                              size="sm"
-                              className="border-green-200 text-green-700 hover:bg-green-50"
-                            >
-                              Reuse
-                            </Button>
-                          </div>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </TabsContent>
-              </Tabs>
-            </div>
-          ) : (
-            <div className="bg-gradient-to-r from-green-50 to-blue-50 rounded-xl p-8 text-center shadow-lg">
-              <h2 className="text-2xl font-semibold mb-4">
-                Sign in to create your meal plan
-              </h2>
-              <p className="text-gray-600 mb-6">
-                Create an account to generate personalized meal plans based on
-                your preferences and dietary needs.
-              </p>
-              <div className="flex justify-center gap-4">
-                <Link to="/login">
-                  <Button
-                    variant="outline"
-                    className="border-green-200 text-green-700 hover:bg-green-50"
-                  >
-                    Sign In
-                  </Button>
-                </Link>
-                <Link to="/signup">
-                  <Button className="bg-gradient-to-r from-green-600 to-green-500 hover:from-green-700 hover:to-green-600">
-                    Create Account
-                  </Button>
-                </Link>
+  <div className="bg-white rounded-xl shadow-lg p-4 sm:p-6 border border-gray-100">
+    <Tabs defaultValue="weekly" className="w-full">
+      <TabsList className="grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-4 mb-6">
+        <TabsTrigger value="weekly">Weekly Plan</TabsTrigger>
+        <TabsTrigger value="templates">Plan Templates</TabsTrigger>
+        <TabsTrigger value="history">History</TabsTrigger>
+      </TabsList>
+
+      {/* Weekly Plan */}
+      <TabsContent value="weekly" className="space-y-6">
+        <div className="mt-20 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-7 gap-4">
+          {[
+            "Monday",
+            "Tuesday",
+            "Wednesday",
+            "Thursday",
+            "Friday",
+            "Saturday",
+            "Sunday",
+          ].map((day) => (
+            <div
+              key={day}
+              className="border border-gray-200 rounded-lg p-4"
+            >
+              <h3 className="font-medium text-gray-800 mb-2">{day}</h3>
+              <div className="space-y-3">
+                <div className="bg-green-50 p-2 rounded-md">
+                  <span className="text-xs font-medium text-gray-500 block">
+                    Breakfast
+                  </span>
+                  <span className="text-sm text-gray-800">
+                    Greek Yogurt Bowl
+                  </span>
+                </div>
+                <div className="bg-blue-50 p-2 rounded-md">
+                  <span className="text-xs font-medium text-gray-500 block">
+                    Lunch
+                  </span>
+                  <span className="text-sm text-gray-800">
+                    Quinoa Salad
+                  </span>
+                </div>
+                <div className="bg-purple-50 p-2 rounded-md">
+                  <span className="text-xs font-medium text-gray-500 block">
+                    Dinner
+                  </span>
+                  <span className="text-sm text-gray-800">
+                    Grilled Salmon
+                  </span>
+                </div>
               </div>
             </div>
-          )}
+          ))}
+        </div>
+        <div className="flex flex-col sm:flex-row justify-center gap-4 mt-6">
+          <Button className="bg-gradient-to-r from-green-600 to-green-500 hover:from-green-700 hover:to-green-600 w-full sm:w-auto">
+            Generate New Plan
+          </Button>
+          <Button
+            variant="outline"
+            className="border-green-200 text-green-700 hover:bg-green-50 w-full sm:w-auto"
+          >
+            Export Plan
+          </Button>
+        </div>
+      </TabsContent>
+
+      {/* Plan Templates */}
+      <TabsContent value="templates" className="space-y-6">
+        <div className="mt-20 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+          {[
+            "Keto Week",
+            "Vegetarian Basics",
+            "High Protein",
+            "Family Friendly",
+            "Budget Meals",
+            "Quick & Easy",
+          ].map((template) => (
+            <div
+              key={template}
+              className="border border-gray-200 rounded-lg p-4 hover:border-green-300 hover:shadow-md transition-all cursor-pointer"
+            >
+              <h3 className="font-medium text-gray-800 mb-2">
+                {template}
+              </h3>
+              <p className="text-sm text-gray-600 mb-4">
+                A curated meal plan focused on{" "}
+                {template.toLowerCase()} recipes.
+              </p>
+              <Button
+                variant="outline"
+                size="sm"
+                className="w-full border-green-200 text-green-700 hover:bg-green-50"
+              >
+                Use Template
+              </Button>
+            </div>
+          ))}
+        </div>
+      </TabsContent>
+
+      {/* History */}
+      <TabsContent value="history" className="space-y-6">
+        <div className="mt-20 space-y-4">
+          {[
+            "May 1-7, 2023",
+            "April 24-30, 2023",
+            "April 17-23, 2023",
+          ].map((week) => (
+            <div
+              key={week}
+              className="border border-gray-200 rounded-lg p-4 hover:border-green-300 hover:shadow-md transition-all"
+            >
+              <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                <h3 className="font-medium text-gray-800">{week}</h3>
+                <div className="flex gap-2">
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    className="border-green-200 text-green-700 hover:bg-green-50"
+                  >
+                    View
+                  </Button>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    className="border-green-200 text-green-700 hover:bg-green-50"
+                  >
+                    Reuse
+                  </Button>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </TabsContent>
+    </Tabs>
+  </div>
+) : (
+  <div className="bg-gradient-to-r from-green-50 to-blue-50 rounded-xl p-6 sm:p-8 text-center shadow-lg">
+    <h2 className="text-xl sm:text-2xl font-semibold mb-4">
+      Sign in to create your meal plan
+    </h2>
+    <p className="text-gray-600 mb-6">
+      Create an account to generate personalized meal plans based on
+      your preferences and dietary needs.
+    </p>
+    <div className="flex flex-col sm:flex-row justify-center gap-4">
+      <Link to="/login">
+        <Button
+          variant="outline"
+          className="border-green-200 text-green-700 hover:bg-green-50 w-full sm:w-auto"
+        >
+          Sign In
+        </Button>
+      </Link>
+      <Link to="/signup">
+        <Button className="bg-gradient-to-r from-green-600 to-green-500 hover:from-green-700 hover:to-green-600 w-full sm:w-auto">
+          Create Account
+        </Button>
+      </Link>
+    </div>
+  </div>
+)}
+
 
           <div className="mt-16">
             <h2 className="text-2xl font-semibold text-center mb-8">

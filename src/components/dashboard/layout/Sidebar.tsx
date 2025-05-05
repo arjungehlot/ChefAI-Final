@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
@@ -9,10 +9,11 @@ import {
   Users,
   Settings,
   HelpCircle,
-  ChefHat,
   ShoppingCart,
   Activity,
   Wand2,
+  ChevronLeft,
+  ChevronRight,
 } from "lucide-react";
 
 interface NavItem {
@@ -62,90 +63,124 @@ const Sidebar = ({
   activeItem = "Home",
   onItemClick = () => {},
 }: SidebarProps) => {
+  const [isOpen, setIsOpen] = useState(true);
+
+  const toggleSidebar = () => setIsOpen(!isOpen);
+
   return (
-    <div className="w-[280px] h-full bg-white/80 backdrop-blur-md border-r border-gray-200 flex flex-col">
-      <div className="p-6">
-        <h2 className="text-xl font-semibold mb-2 text-gray-900">ChefAI</h2>
+    <div
+      className={`h-full bg-white/80 backdrop-blur-md border-r border-gray-200 flex flex-col transition-all duration-300 ${
+        isOpen ? "w-[280px]" : "w-[60px]"
+      }`}
+    >
+      {/* Toggle Button */}
+      <div className="flex justify-end p-2">
+        <button
+          onClick={toggleSidebar}
+          className="text-gray-600 hover:text-gray-800 transition"
+        >
+          {isOpen ? <ChevronLeft size={20} /> : <ChevronRight size={20} />}
+        </button>
+      </div>
+
+      {/* Logo Section */}
+      <div className={`px-6 pb-4 ${isOpen ? "block" : "hidden"}`}>
+        <h2 className="text-xl font-semibold mb-1 text-gray-900">ChefAI</h2>
         <p className="text-sm text-gray-500">Your smart kitchen companion</p>
       </div>
 
-      <ScrollArea className="flex-1 px-4">
+      {/* Scrollable Area */}
+      <ScrollArea className="flex-1 px-2">
         <div className="space-y-1.5">
           {items.map((item) => (
             <Button
               key={item.label}
-              variant={"ghost"}
-              className={`w-full justify-start gap-3 h-10 rounded-xl text-sm font-medium ${item.label === activeItem ? "bg-green-50 text-green-600 hover:bg-green-100" : "text-gray-700 hover:bg-gray-100"}`}
-              // onClick={() => onItemClick(item.label)}
+              variant="ghost"
+              className={`w-full justify-start gap-3 h-10 rounded-xl text-sm font-medium ${
+                item.label === activeItem
+                  ? "bg-green-50 text-green-600 hover:bg-green-100"
+                  : "text-gray-700 hover:bg-gray-100"
+              }`}
               onClick={() => {
                 if (item.href) {
                   window.location.href = item.href;
                 } else {
-                  // Handle the case where href is not provided
                   onItemClick(item.label);
                 }
               }}
             >
               <span
-                className={`${item.label === activeItem ? "text-green-600" : "text-gray-500"}`}
+                className={`${
+                  item.label === activeItem
+                    ? "text-green-600"
+                    : "text-gray-500"
+                }`}
               >
                 {item.icon}
               </span>
-              {item.label}
+              {isOpen && <span>{item.label}</span>}
             </Button>
           ))}
         </div>
 
-        <Separator className="my-4 bg-gray-100" />
+        {isOpen && <Separator className="my-4 bg-gray-100" />}
 
+        {/* Kitchen Tools */}
         <div className="space-y-3">
-          <h3 className="text-xs font-medium px-4 py-1 text-gray-500 uppercase tracking-wider">
-            Kitchen Tools
-          </h3>
+          {isOpen && (
+            <h3 className="text-xs font-medium px-4 py-1 text-gray-500 uppercase tracking-wider">
+              Kitchen Tools
+            </h3>
+          )}
           {kitchenItems.map((item) => (
             <Button
               key={item.label}
               variant="ghost"
-              className={`w-full justify-start gap-3 h-9 rounded-xl text-sm font-medium ${item.label === activeItem ? "bg-green-50 text-green-600 hover:bg-green-100" : "text-gray-700 hover:bg-gray-100"}`}
-              // onClick={() => onItemClick(item.label)}/
+              className={`w-full justify-start gap-3 h-9 rounded-xl text-sm font-medium ${
+                item.label === activeItem
+                  ? "bg-green-50 text-green-600 hover:bg-green-100"
+                  : "text-gray-700 hover:bg-gray-100"
+              }`}
               onClick={() => {
                 if (item.href) {
                   window.location.href = item.href;
                 } else {
-                  // Handle the case where href is not provided
                   onItemClick(item.label);
                 }
               }}
             >
               <span
-                className={`${item.label === activeItem ? "text-green-600" : "text-gray-500"}`}
+                className={`${
+                  item.label === activeItem
+                    ? "text-green-600"
+                    : "text-gray-500"
+                }`}
               >
                 {item.icon}
               </span>
-              {item.label}
+              {isOpen && <span>{item.label}</span>}
             </Button>
           ))}
         </div>
       </ScrollArea>
 
+      {/* Bottom Items */}
       <div className="p-4 mt-auto border-t border-gray-200">
         {defaultBottomItems.map((item) => (
           <Button
             key={item.label}
             variant="ghost"
             className="w-full justify-start gap-3 h-10 rounded-xl text-sm font-medium text-gray-700 hover:bg-gray-100 mb-1.5"
-            // onClick={() => onItemClick(item.label)}
             onClick={() => {
               if (item.href) {
                 window.location.href = item.href;
               } else {
-                // Handle the case where href is not provided
                 onItemClick(item.label);
               }
             }}
           >
             <span className="text-gray-500">{item.icon}</span>
-            {item.label}
+            {isOpen && <span>{item.label}</span>}
           </Button>
         ))}
       </div>

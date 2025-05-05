@@ -15,7 +15,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { Bell, Home, Search, Settings, User } from "lucide-react";
+import { Bell, Home, Settings, User } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useAuth } from "../../../../supabase/auth";
 
@@ -36,22 +36,21 @@ const TopNavigation = ({
   if (!user) return null;
 
   return (
-    <div className="w-full h-16 border-b border-gray-200 bg-white/80 backdrop-blur-md flex items-center justify-between px-6 fixed top-0 z-50 shadow-sm">
+    <div className="w-full h-16 border-b border-gray-200 bg-white/80 backdrop-blur-md flex items-center justify-between px-4 sm:px-6 fixed top-0 z-50 shadow-sm">
       <div className="flex items-center gap-4 flex-1">
         <Link to="/" className="text-gray-900 hover:text-gray-700 transition-colors">
           <Home className="h-5 w-5" />
         </Link>
-        <div className="relative w-64">
-          <Search className="absolute left-3 top-2.5 h-4 w-4 text-gray-400" />
+        <div className="relative w-full max-w-xs hidden sm:block">
           <Input
             placeholder="Search projects..."
-            className="pl-9 h-10 rounded-full bg-gray-100 border-0 text-sm focus:ring-2 focus:ring-gray-200 focus-visible:ring-gray-200 focus-visible:ring-offset-0"
+            className="pl-4 h-10 rounded-full bg-gray-100 border-0 text-sm focus:ring-2 focus:ring-gray-200 focus-visible:ring-gray-200 focus-visible:ring-offset-0"
             onChange={(e) => onSearch(e.target.value)}
           />
         </div>
       </div>
 
-      <div className="flex items-center gap-4">
+      <div className="flex items-center gap-2 sm:gap-4">
         <TooltipProvider>
           <Tooltip>
             <TooltipTrigger asChild>
@@ -82,6 +81,7 @@ const TopNavigation = ({
             </TooltipContent>
           </Tooltip>
         </TooltipProvider>
+
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Avatar className="h-8 w-8 hover:cursor-pointer">
