@@ -80,7 +80,7 @@ const TodayMealPlan = () => {
   };
 
   return (
-    <div className="p-6 mx-28 space-y-6 text-gray-800">
+    <div className="p-6 space-y-6 text-gray-800">
       {/* SECTION 1: Header + Add Meal */}
       <Card className="bg-white/90 border border-gray-100 rounded-2xl shadow-lg">
         <CardHeader className="flex justify-between items-center">
