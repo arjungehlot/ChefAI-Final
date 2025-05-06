@@ -1,98 +1,138 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Mic, MicOff, Loader2 } from "lucide-react";
+import { Mic, MicOff, MicOffIcon } from "lucide-react";
+
+// Declare global types
+declare global {
+  interface Window {
+    SpeechRecognition?: any;
+    webkitSpeechRecognition?: any;
+  }
+
+  interface SpeechRecognitionEvent extends Event {
+    readonly resultIndex: number;
+    readonly results: SpeechRecognitionResultList;
+  }
+
+  interface SpeechRecognitionResultList {
+    readonly length: number;
+    item(index: number): SpeechRecognitionResult;
+    [index: number]: SpeechRecognitionResult;
+  }
+
+  interface SpeechRecognitionResult {
+    readonly isFinal: boolean;
+    readonly length: number;
+    item(index: number): SpeechRecognitionAlternative;
+    [index: number]: SpeechRecognitionAlternative;
+  }
+
+  interface SpeechRecognitionAlternative {
+    readonly transcript: string;
+    readonly confidence: number;
+  }
+
+  interface SpeechRecognition extends EventTarget {
+    continuous: boolean;
+    interimResults: boolean;
+    lang: string;
+    start(): void;
+    stop(): void;
+    abort(): void;
+    onaudiostart: ((this: SpeechRecognition, ev: Event) => any) | null;
+    onaudioend: ((this: SpeechRecognition, ev: Event) => any) | null;
+    onend: ((this: SpeechRecognition, ev: Event) => any) | null;
+    onerror: ((this: SpeechRecognition, ev: SpeechRecognitionErrorEvent) => any) | null;
+    onnomatch: ((this: SpeechRecognition, ev: Event) => any) | null;
+    onresult: ((this: SpeechRecognition, ev: SpeechRecognitionEvent) => any) | null;
+    onsoundstart: ((this: SpeechRecognition, ev: Event) => any) | null;
+    onsoundend: ((this: SpeechRecognition, ev: Event) => any) | null;
+    onspeechstart: ((this: SpeechRecognition, ev: Event) => any) | null;
+    onspeechend: ((this: SpeechRecognition, ev: Event) => any) | null;
+    onstart: ((this: SpeechRecognition, ev: Event) => any) | null;
+  }
+
+  interface SpeechRecognitionErrorEvent extends Event {
+    readonly error: string;
+    readonly message: string;
+  }
+}
 
 interface VoiceInputProps {
   onTranscript: (transcript: string) => void;
 }
 
-const VoiceInput = ({ onTranscript }: VoiceInputProps) => {
+const VoiceInput: React.FC<VoiceInputProps> = ({ onTranscript }) => {
   const [isListening, setIsListening] = useState(false);
-  const [transcript, setTranscript] = useState("");
-  const [recognition, setRecognition] = useState<any>(null);
+  const [recognition, setRecognition] = useState<SpeechRecognition | null>(null);
 
   useEffect(() => {
-    // Check if browser supports SpeechRecognition
     const SpeechRecognition =
       window.SpeechRecognition || window.webkitSpeechRecognition;
 
-    if (SpeechRecognition) {
-      const recognitionInstance = new SpeechRecognition();
-      recognitionInstance.continuous = true;
-      recognitionInstance.interimResults = true;
-      recognitionInstance.lang = "en-US";
-
-      recognitionInstance.onresult = (event: any) => {
-        const current = event.resultIndex;
-        const result = event.results[current];
-        const transcriptValue = result[0].transcript;
-        setTranscript(transcriptValue);
-      };
-
-      recognitionInstance.onend = () => {
-        setIsListening(false);
-      };
-
-      setRecognition(recognitionInstance);
-    }
-
-    return () => {
-      if (recognition) {
-        recognition.stop();
-      }
-    };
-  }, []);
-
-  const toggleListening = () => {
-    if (!recognition) {
-      alert("Speech recognition is not supported in your browser.");
+    if (!SpeechRecognition) {
+      alert("Your browser does not support Speech Recognition.");
       return;
     }
 
+    const recognitionInstance: SpeechRecognition = new SpeechRecognition();
+    recognitionInstance.continuous = true;
+    recognitionInstance.interimResults = true;
+    recognitionInstance.lang = "en-US";
+
+    recognitionInstance.onresult = (event: SpeechRecognitionEvent) => {
+      let finalTranscript = "";
+      for (let i = event.resultIndex; i < event.results.length; ++i) {
+        const result = event.results[i];
+        if (result.isFinal) {
+          finalTranscript += result[0].transcript + " ";
+        }
+      }
+
+      if (finalTranscript.trim()) {
+        onTranscript(finalTranscript.trim());
+      }
+    };
+
+    recognitionInstance.onerror = (event: SpeechRecognitionErrorEvent) => {
+      console.error("Speech recognition error:", event.error);
+      alert("Microphone or speech recognition error: " + event.error);
+      setIsListening(false);
+    };
+
+    recognitionInstance.onend = () => {
+      setIsListening(false);
+    };
+
+    setRecognition(recognitionInstance);
+
+    return () => {
+      recognitionInstance.stop();
+    };
+  }, [onTranscript]);
+
+  const toggleListening = () => {
+    if (!recognition) return;
+
     if (isListening) {
       recognition.stop();
-      setIsListening(false);
-      // Pass the transcript to parent component
-      if (transcript) {
-        onTranscript(transcript);
-      }
     } else {
-      setTranscript("");
       recognition.start();
-      setIsListening(true);
     }
+
+    setIsListening((prev) => !prev);
   };
 
   return (
-    <div className="space-y-2">
-      <div className="flex items-center gap-2">
-        <Button
-          type="button"
-          onClick={toggleListening}
-          className={`rounded-full w-10 h-10 p-0 flex items-center justify-center ${isListening ? "bg-red-500 hover:bg-red-600" : "bg-blue-500 hover:bg-blue-600"}`}
-        >
-          {isListening ? (
-            <MicOff className="h-5 w-5" />
-          ) : (
-            <Mic className="h-5 w-5" />
-          )}
-        </Button>
-        <span className="text-sm font-medium text-gray-700">
-          {isListening
-            ? "Listening... Click to stop"
-            : "Click to speak ingredients"}
-        </span>
-      </div>
-
-      {transcript && (
-        <div className="p-3 bg-blue-50 border border-blue-100 rounded-md">
-          <p className="text-sm font-medium text-blue-800">
-            Detected ingredients:
-          </p>
-          <p className="text-sm text-blue-700">{transcript}</p>
-        </div>
-      )}
-    </div>
+    <Button
+      type="button"
+      onClick={toggleListening}
+      className={`rounded-full w-10 h-10 p-0 flex items-center justify-center ${
+        isListening ? "bg-green-500 hover:bg-green-600" : "bg-green-500 hover:bg-green-600"
+      }`}
+    >
+      {isListening ? <MicOffIcon className="h-5 w-5" /> : <Mic className="h-5 w-5" />}
+    </Button>
   );
 };
 

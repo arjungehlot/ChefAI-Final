@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import VoiceInput from '../recipe/VoiceInput';
 
 interface Ingredient {
   original: string;
@@ -56,7 +57,6 @@ const SearchRecipes: React.FC = () => {
     setLoading(false);
   };
 
-
   return (
     <div className="md:mx-28 p-6 md:p-10 font-sans">
       <h1 className="text-3xl font-bold text-center mb-6 text-black">Search Recipes by Ingredients</h1>
@@ -69,6 +69,7 @@ const SearchRecipes: React.FC = () => {
           placeholder="e.g., chicken, tomato"
           className="w-full sm:w-96 px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-green-400"
         />
+        <VoiceInput onTranscript={(transcript) => setIngredients(transcript)} />
         <button
           onClick={searchRecipes}
           className="bg-green-600 hover:bg-green-700 text-white px-6 py-2 rounded-lg shadow transition duration-300"
