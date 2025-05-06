@@ -30,7 +30,7 @@ const Navbar = () => {
             </svg>
           </div>
           <span className="font-bold text-2xl bg-gradient-to-r from-green-700 to-green-500 bg-clip-text text-transparent">
-            ChefAI
+            ChefAi
           </span>
         </Link>
 
