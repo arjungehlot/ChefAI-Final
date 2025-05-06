@@ -111,7 +111,7 @@ const SmartGroceryList = () => {
   };
 
   return (
-    <div className="p-4 mx-32  transition-all text-gray-900 rounded-xl">
+    <div className="p-4 md:mx-56 mx-2  transition-all text-gray-900 rounded-xl">
       <Card className="backdrop-blur border border-gray-200 rounded-2xl shadow-md">
         <CardHeader className="flex flex-col sm:flex-row sm:items-center justify-between pb-2 space-y-2 sm:space-y-0 bg-green-500 p-4 rounded-t-2xl text-white">
           <div className="flex items-center gap-2">

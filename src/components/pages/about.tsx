@@ -10,7 +10,7 @@ export default function AboutPage() {
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
             <h1 className="text-4xl font-bold text-gray-900 mb-4">
-              About CheafAI
+              About ChefAI
             </h1>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
               Revolutionizing home cooking with AI-powered recipe generation and
@@ -22,7 +22,7 @@ export default function AboutPage() {
             <div>
               <h2 className="text-3xl font-semibold mb-6">Our Mission</h2>
               <p className="text-gray-600 mb-6">
-                At CheafAI, we're on a mission to transform the way people cook
+                At ChefAi, we're on a mission to transform the way people cook
                 at home. We believe that cooking should be accessible,
                 enjoyable, and sustainable for everyone, regardless of their
                 culinary expertise or time constraints.
@@ -61,7 +61,7 @@ export default function AboutPage() {
                 <div className="md:w-2/3">
                   <h3 className="text-xl font-medium mb-2">The Beginning</h3>
                   <p className="text-gray-600">
-                    CheafAI started as a personal project by our founder, who
+                    ChefAi started as a personal project by our founder, who
                     was frustrated with food waste and the daily challenge of
                     deciding what to cook with limited ingredients. The initial
                     prototype was built to generate recipes based on whatever
@@ -99,7 +99,7 @@ export default function AboutPage() {
                     Launch and Beyond
                   </h3>
                   <p className="text-gray-600">
-                    We officially launched CheafAI to the public, quickly
+                    We officially launched ChefAi to the public, quickly
                     growing to serve thousands of users. We've continued to
                     enhance our AI capabilities, add new features like meal
                     planning and nutritional tracking, and build a community of

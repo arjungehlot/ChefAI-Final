@@ -11,7 +11,7 @@ export default function PricingPage() {
       name: "Free",
       price: "$0",
       period: "forever",
-      description: "Perfect for trying out CheafAI",
+      description: "Perfect for trying out ChefAi",
       features: [
         "5 recipe generations per day",
         "Basic ingredient substitutions",
@@ -248,7 +248,7 @@ export default function PricingPage() {
             </h2>
             <p className="text-gray-600 mb-6 max-w-2xl mx-auto">
               Join thousands of happy users who are cooking smarter with
-              CheafAI.
+              ChefAi.
             </p>
             <Link to="/signup">
               <Button className="bg-gradient-to-r from-green-600 to-green-500 hover:from-green-700 hover:to-green-600 text-white px-8 py-2 text-lg">

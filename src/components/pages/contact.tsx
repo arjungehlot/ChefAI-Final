@@ -178,7 +178,7 @@ export default function ContactPage() {
                       <h3 className="text-sm font-medium text-gray-700">
                         Email
                       </h3>
-                      <p className="text-gray-600">support@cheafai.com</p>
+                      <p className="text-gray-600">support@chefai.com</p>
                     </div>
                   </div>
                   <div className="flex items-start">

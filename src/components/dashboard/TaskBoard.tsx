@@ -141,7 +141,7 @@ const TaskBoard = ({
                       className="p-4 bg-white rounded-lg shadow-sm border border-gray-100 cursor-pointer hover:shadow-md transition"
                       draggable
                       drag
-                      onDragStart={(e) => handleDragStart(e, task.id)}
+                      // onDragStart={(e) => handleDragStart(e, task.id)}
                       onClick={() => onTaskClick(task)}
                       whileHover={{ scale: 1.02 }}
                     >

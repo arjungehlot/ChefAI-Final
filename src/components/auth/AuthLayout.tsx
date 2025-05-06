@@ -27,7 +27,7 @@ export default function AuthLayout({ children }: { children: ReactNode }) {
                 </svg>
               </div>
               <span className="font-bold text-2xl bg-gradient-to-r from-green-700 to-green-500 bg-clip-text text-transparent">
-                CheafAI
+                ChefAi
               </span>
             </Link>
           </div>

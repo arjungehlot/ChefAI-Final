@@ -4,9 +4,9 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
 import {
   Home,
-  LayoutDashboard,
+  // LayoutDashboard,
   Calendar,
-  Users,
+  // Users,
   Settings,
   HelpCircle,
   ShoppingCart,
@@ -31,7 +31,7 @@ interface SidebarProps {
 
 const defaultNavItems: NavItem[] = [
   { icon: <Home size={20} />, label: "Home", isActive: true },
-  { icon: <LayoutDashboard size={20} />, label: "Dashboard" },
+  // { icon: <LayoutDashboard size={20} />, label: "Dashboard" },
 ];
 
 const kitchenItems: NavItem[] = [

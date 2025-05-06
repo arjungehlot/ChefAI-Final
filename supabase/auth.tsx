@@ -40,20 +40,26 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     } = supabase.auth.onAuthStateChange((event, session) => {
       setUser(session?.user ?? null);
       setLoading(false);
-
+    
       if (
         event === "SIGNED_IN" &&
         session?.user?.app_metadata?.provider === "email"
       ) {
-        toast({
-          title: "Email Verification Required",
-          description:
-            "Please check your email to confirm your account before signing in.",
-          duration: 50000,
-        });
+        const hasShownToast = localStorage.getItem("email_verification_toast_shown");
+    
+        if (!hasShownToast) {
+          toast({
+            title: "Email Verification Required",
+            description: "Please check your email to confirm your account before signing in.",
+            duration: 50000,
+          });
+    
+          // Mark it as shown
+          localStorage.setItem("email_verification_toast_shown", "true");
+        }
       }
     });
-
+    
     return () => subscription.unsubscribe();
   }, [toast]);
 

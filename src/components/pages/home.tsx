@@ -854,7 +854,7 @@ export default function LandingPage() {
                   </svg>
                 </div>
                 <span className="font-bold text-2xl bg-gradient-to-r from-green-700 to-green-500 bg-clip-text text-transparent">
-                  CheafAI
+                  ChefAi
                 </span>
               </div>
               <p className="text-gray-600 mb-6 max-w-md">
@@ -1088,7 +1088,7 @@ export default function LandingPage() {
 
           <div className="border-t border-gray-200 pt-8 flex flex-col md:flex-row justify-between items-center">
             <p className="text-gray-600 mb-4 md:mb-0">
-              © 2025 CheafAI. All rights reserved.
+              © 2025 ChefAi. All rights reserved.
             </p>
             <div className="flex space-x-6">
               <Link

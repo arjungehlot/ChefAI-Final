@@ -47,7 +47,7 @@ const CookingVideosPage = () => {
           Cooking Video Demonstration
         </h1>
         <p className="text-lg text-gray-700 mb-8 text-center">
-          Watch our step-by-step guide on how to prepare delicious dishes with CheafAI
+          Watch our step-by-step guide on how to prepare delicious dishes with ChefAi
         </p>
 
         {/* Main Video Section */}

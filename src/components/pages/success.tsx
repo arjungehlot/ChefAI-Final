@@ -14,7 +14,7 @@ export default function Success() {
     if (user) {
       toast({
         title: "Login Successful",
-        description: "Welcome to CheafAI! You are now signed in.",
+        description: "Welcome to ChefAi! You are now signed in.",
         duration: 3000,
       });
       navigate("/dashboard");

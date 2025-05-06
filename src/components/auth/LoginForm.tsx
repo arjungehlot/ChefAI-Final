@@ -56,7 +56,7 @@ export default function LoginForm() {
             </svg>
           </div>
           <h2 className="text-2xl font-bold text-gray-800">
-            Welcome back to CheafAI
+            Welcome back to ChefAi
           </h2>
           <p className="text-gray-600 mt-1">
             Sign in to access your personalized recipes

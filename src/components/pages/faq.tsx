@@ -10,9 +10,9 @@ import { Link } from "react-router-dom";
 export default function FAQPage() {
   const faqs = [
     {
-      question: "What is CheafAI?",
+      question: "What is ChefAi?",
       answer:
-        "CheafAI is an AI-powered recipe generator that creates personalized recipes based on the ingredients you have available, your dietary preferences, and nutritional goals. Our platform helps you reduce food waste, eat healthier, and discover new delicious meals.",
+        "ChefAi is an AI-powered recipe generator that creates personalized recipes based on the ingredients you have available, your dietary preferences, and nutritional goals. Our platform helps you reduce food waste, eat healthier, and discover new delicious meals.",
     },
     {
       question: "How does the recipe generator work?",
@@ -20,9 +20,9 @@ export default function FAQPage() {
         "Our recipe generator uses advanced AI algorithms to analyze the ingredients you input, along with your dietary preferences and nutritional goals. It then searches through thousands of recipe patterns to create a personalized recipe that maximizes the use of your available ingredients while meeting your specific requirements.",
     },
     {
-      question: "Is CheafAI free to use?",
+      question: "Is ChefAi free to use?",
       answer:
-        "CheafAI offers a free plan that allows you to generate up to 5 recipes per day. For unlimited recipe generation, advanced features, and meal planning capabilities, we offer Premium and Family subscription plans. Visit our Pricing page for more details.",
+        "ChefAi offers a free plan that allows you to generate up to 5 recipes per day. For unlimited recipe generation, advanced features, and meal planning capabilities, we offer Premium and Family subscription plans. Visit our Pricing page for more details.",
     },
     {
       question: "Can I save recipes for later?",
@@ -37,7 +37,7 @@ export default function FAQPage() {
     {
       question: "Can I specify dietary restrictions or allergies?",
       answer:
-        "Absolutely. CheafAI allows you to set dietary preferences such as vegetarian, vegan, gluten-free, dairy-free, keto, and more. You can also specify allergies in your profile settings, and our AI will avoid suggesting recipes with those ingredients.",
+        "Absolutely. ChefAi allows you to set dietary preferences such as vegetarian, vegan, gluten-free, dairy-free, keto, and more. You can also specify allergies in your profile settings, and our AI will avoid suggesting recipes with those ingredients.",
     },
     {
       question: "What if I don't have all the ingredients for a recipe?",
@@ -45,14 +45,14 @@ export default function FAQPage() {
         "No problem! Our AI provides substitution suggestions for ingredients you might not have. Additionally, you can regenerate recipes with only the ingredients you have available, or see what additional ingredients would be needed to complete a recipe.",
     },
     {
-      question: "Can I create meal plans with CheafAI?",
+      question: "Can I create meal plans with ChefAi?",
       answer:
         "Yes, Premium and Family plan subscribers can create weekly meal plans based on their preferences. The meal planner helps you organize your meals for the week and generates a consolidated shopping list for all the recipes.",
     },
     {
       question: "Is there a mobile app available?",
       answer:
-        "Currently, CheafAI is available as a web application that works on all devices, including mobile phones. We're working on dedicated iOS and Android apps that will be released soon. Sign up for our newsletter to be notified when they launch.",
+        "Currently, ChefAi is available as a web application that works on all devices, including mobile phones. We're working on dedicated iOS and Android apps that will be released soon. Sign up for our newsletter to be notified when they launch.",
     },
     {
       question: "How do I cancel my subscription?",
@@ -70,7 +70,7 @@ export default function FAQPage() {
       <Accordion type="single" collapsible className="space-y-2">
         {faqs.map((faq, index) => (
           <AccordionItem key={index} value={`item-${index}`}>
-            <AccordionTrigger className="text-lg sm:text-xl font-semibold">
+            <AccordionTrigger className="text-lg sm:text-lg font-semibold">
               {faq.question}
             </AccordionTrigger>
             <AccordionContent className="text-gray-700 text-sm sm:text-base">

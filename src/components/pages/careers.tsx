@@ -253,7 +253,7 @@ export default function CareersPage() {
             </h2>
             <p className="text-gray-600 mb-6 max-w-2xl mx-auto">
               We're always looking for talented individuals to join our team.
-              Send us your resume and tell us how you can contribute to CheafAI.
+              Send us your resume and tell us how you can contribute to ChefAi.
             </p>
             <Link to="/contact">
               <Button className="bg-white text-green-600 hover:bg-green-50 border border-green-200">
