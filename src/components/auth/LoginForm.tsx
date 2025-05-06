@@ -4,8 +4,9 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useNavigate, Link } from "react-router-dom";
-import AuthLayout from "./AuthLayout";
+// import AuthLayout from "./AuthLayout";
 import { useToast } from "@/components/ui/use-toast";
+import Navbar from "../layout/Navbar";
 
 export default function LoginForm() {
   const [email, setEmail] = useState("");
@@ -32,8 +33,10 @@ export default function LoginForm() {
   };
 
   return (
-    <AuthLayout>
-      <div className="bg-white rounded-2xl shadow-lg p-8 w-full max-w-md mx-auto border border-green-50">
+    // <AuthLayout>
+    <>
+     <Navbar />
+      <div className="bg-white mt-8 mb-2 p-8   rounded-2xl  shadow-lg  w-[30rem] max-w-md mx-auto border border-green-50">
         <div className="text-center mb-6">
           <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-green-100 mb-4">
             <svg
@@ -291,6 +294,6 @@ export default function LoginForm() {
           </div>
         </form>
       </div>
-    </AuthLayout>
+    </>
   );
 }

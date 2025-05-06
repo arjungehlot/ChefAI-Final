@@ -42,11 +42,11 @@ const TopNavigation = ({
           <Home className="h-5 w-5" />
         </Link>
         <div className="relative w-full max-w-xs hidden sm:block">
-          <Input
+          {/* <Input
             placeholder="Search projects..."
             className="pl-4 h-10 rounded-full bg-gray-100 border-0 text-sm focus:ring-2 focus:ring-gray-200 focus-visible:ring-gray-200 focus-visible:ring-offset-0"
             onChange={(e) => onSearch(e.target.value)}
-          />
+          /> */}
         </div>
       </div>
 
