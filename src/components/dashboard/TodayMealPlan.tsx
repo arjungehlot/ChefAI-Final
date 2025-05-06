@@ -78,7 +78,7 @@ const TodayMealPlan = () => {
   };
 
   return (
-    <div className="pt-4 p-2 space-y-6 text-gray-800 max-w-8xl mx-auto">
+    <div className="pt-4 p-2  space-y-6 text-gray-800 max-w-8xl mx-auto">
       {/* Header Section */}
       <Card className="bg-white/90 border border-gray-100 rounded-2xl shadow-lg">
         <CardHeader className="flex flex-wrap justify-between items-center gap-4">

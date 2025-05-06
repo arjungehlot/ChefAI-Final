@@ -7,7 +7,7 @@ export default function MealPlansPage() {
   const { user } = useAuth();
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen  bg-white">
       {/* Header is included in the App layout */}
 
       <main className="pt-24 pb-20 px-6">
