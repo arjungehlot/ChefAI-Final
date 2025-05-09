@@ -285,7 +285,7 @@ export default function LandingPage() {
                 </h3>
 
                 <div className="flex flex-col sm:flex-row gap-4 pt-4">
-                  <Link to="/signup">
+                  <Link to="/recipe-generator">
                     <Button className="bg-gradient-to-r from-green-600 to-green-500 hover:from-green-700 hover:to-green-600 text-white rounded-lg px-8 py-6 text-lg font-medium shadow-lg hover:shadow-xl transition-all w-full sm:w-auto">
                       Start Cooking Now
                     </Button>

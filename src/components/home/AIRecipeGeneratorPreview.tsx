@@ -75,7 +75,7 @@ export default function AIRecipeGeneratorPreview() {
 
       // Search for recipes by ingredients
       const searchRes = await fetch(
-        `https://api.spoonacular.com/recipes/findByIngredients?${queryParams.toString()}`,
+        `https://api.spoonacular.com/recipes/findByIngredients?${queryParams.toString()}`
       );
       const searchData = await searchRes.json();
 
@@ -93,7 +93,9 @@ export default function AIRecipeGeneratorPreview() {
         infoParams.append("apiKey", apiKey);
 
         const infoRes = await fetch(
-          `https://api.spoonacular.com/recipes/${recipe.id}/information?${infoParams.toString()}`,
+          `https://api.spoonacular.com/recipes/${
+            recipe.id
+          }/information?${infoParams.toString()}`
         );
         const info = await infoRes.json();
         detailedRecipes.push(info);
@@ -114,7 +116,7 @@ export default function AIRecipeGeneratorPreview() {
             ? firstRecipe.diets[0]
             : "Balanced",
           ingredients: firstRecipe.extendedIngredients.map(
-            (ing) => ing.original,
+            (ing) => ing.original
           ),
           instructions: firstRecipe.instructions
             ? firstRecipe.instructions
@@ -172,7 +174,7 @@ export default function AIRecipeGeneratorPreview() {
         {
           method: "POST",
           body: formData,
-        },
+        }
       );
 
       const data = await response.json();
@@ -188,13 +190,13 @@ export default function AIRecipeGeneratorPreview() {
           .join(", ");
 
         setIngredients((prev) =>
-          prev ? `${prev}, ${detectedIngredients}` : detectedIngredients,
+          prev ? `${prev}, ${detectedIngredients}` : detectedIngredients
         );
       } else {
         // Fallback for demo purposes if the API doesn't return expected data
-        const detectedIngredients = "tomatoes, onions, bell peppers, chicken";
+        const detectedIngredients = "Wheat flour, egg, milk, butter";
         setIngredients((prev) =>
-          prev ? `${prev}, ${detectedIngredients}` : detectedIngredients,
+          prev ? `${prev}, ${detectedIngredients}` : detectedIngredients
         );
       }
     } catch (err) {
@@ -204,12 +206,30 @@ export default function AIRecipeGeneratorPreview() {
       // Fallback for demo purposes
       const detectedIngredients = "tomatoes, onions, bell peppers, chicken";
       setIngredients((prev) =>
-        prev ? `${prev}, ${detectedIngredients}` : detectedIngredients,
+        prev ? `${prev}, ${detectedIngredients}` : detectedIngredients
       );
     }
 
     setIsAnalyzingImage(false);
   };
+
+  function mergeInstructions(instructions) {
+    const merged = [];
+    let buffer = "";
+
+    for (let text of instructions) {
+      const clean = text.replace(/<\/?p>/g, "").trim();
+      if (clean.length < 40 && buffer) {
+        buffer += " " + clean;
+      } else {
+        if (buffer) merged.push(buffer);
+        buffer = clean;
+      }
+    }
+
+    if (buffer) merged.push(buffer);
+    return merged;
+  }
 
   return (
     <section className="py-16 bg-gradient-to-b from-green-50 to-white">
@@ -487,7 +507,7 @@ export default function AIRecipeGeneratorPreview() {
                         {generatedRecipe.ingredients.map(
                           (ingredient, index) => (
                             <li key={index}>{ingredient}</li>
-                          ),
+                          )
                         )}
                       </ul>
                     </div>
@@ -496,13 +516,13 @@ export default function AIRecipeGeneratorPreview() {
                       <h5 className="font-medium text-gray-700 mb-1">
                         Instructions:
                       </h5>
-                      <ol className="list-decimal pl-5 text-gray-600 space-y-1">
-                        {generatedRecipe.instructions.map(
-                          (instruction, index) => (
-                            <li key={index}>{instruction}</li>
-                          ),
+                      <ul className="list-decimal pl-5 text-gray-600 space-y-1">
+                        {mergeInstructions(generatedRecipe.instructions).map(
+                          (step, index) => (
+                            <li key={index}>{step}</li>
+                          )
                         )}
-                      </ol>
+                      </ul>
                     </div>
 
                     <div className="bg-blue-50 p-3 rounded-md border border-blue-100">
@@ -589,12 +609,14 @@ export default function AIRecipeGeneratorPreview() {
                               setGeneratedRecipe({
                                 title: recipe.title,
                                 time: `${recipe.readyInMinutes || 25} mins`,
-                                calories: `${recipe.healthScore || 350} calories`,
+                                calories: `${
+                                  recipe.healthScore || 350
+                                } calories`,
                                 nutritionType: recipe.diets?.length
                                   ? recipe.diets[0]
                                   : "Balanced",
                                 ingredients: recipe.extendedIngredients.map(
-                                  (ing) => ing.original,
+                                  (ing) => ing.original
                                 ),
                                 instructions: recipe.instructions
                                   ? recipe.instructions
