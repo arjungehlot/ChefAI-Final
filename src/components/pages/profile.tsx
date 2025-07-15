@@ -162,10 +162,10 @@ const UserProfile = () => {
           onValueChange={setActiveTab}
           className="space-y-6"
         >
-          <TabsList className="mb-4 flex flex-wrap justify-start gap-2 sm:justify-center md:gap-4">
+          <TabsList className="mb-2 flex flex-wrap justify-start gap-2 h-14 sm:justify-center md:gap-4">
             <TabsTrigger
               value="saved"
-              className="flex items-center gap-2 px-3 py-2 text-sm sm:text-base rounded-md hover:bg-gray-100 transition"
+              className="flex items-center gap-2 px-3  text-sm sm:text-base rounded-md hover:bg-gray-100 transition"
             >
               <Heart size={16} />
               Saved Recipes
@@ -195,24 +195,6 @@ const UserProfile = () => {
 
           <TabsContent value="saved" className="space-y-6">
             <h2 className="text-2xl font-semibold pt-8 ">Saved Recipes</h2>
-            {savedRecipes.length > 0 ? (
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {savedRecipes.map((recipe) => (
-                  <RecipeCard
-                    key={recipe.id}
-                    id={recipe.id}
-                    title={recipe.title}
-                    cookingTime={recipe.cookingTime}
-                    calories={recipe.calories}
-                    dietType={recipe.dietType}
-                    image={recipe.image}
-                    description={recipe.description}
-                    rating={recipe.rating}
-                    difficulty={recipe.difficulty}
-                  />
-                ))}
-              </div>
-            ) : (
               <div className="text-center py-12 bg-gray-50 rounded-xl">
                 <Heart size={48} className="mx-auto text-gray-300 mb-4" />
                 <h3 className="text-xl font-medium text-gray-700 mb-2">
@@ -225,62 +207,10 @@ const UserProfile = () => {
                   <Button>Browse Recipes</Button>
                 </Link>
               </div>
-            )}
           </TabsContent>
 
           <TabsContent value="history" className="space-y-6">
-            <h2 className="text-2xl font-semibold pt-8">Cooking History</h2>
-            {cookingHistory.length > 0 ? (
-              <div className="space-y-4">
-                {cookingHistory.map((recipe) => (
-                  <Card key={recipe.id} className="overflow-hidden">
-                    <CardContent className="p-0">
-                      <div className="flex flex-col md:flex-row">
-                        <div className="md:w-48 h-48 md:h-auto">
-                          <img
-                            src={recipe.image}
-                            alt={recipe.title}
-                            className="w-full h-full object-cover"
-                          />
-                        </div>
-                        <div className="p-4 flex-1">
-                          <div className="flex justify-between items-start">
-                            <div>
-                              <h3 className="text-lg font-semibold">
-                                {recipe.title}
-                              </h3>
-                              <p className="text-sm text-gray-500">
-                                Cooked on{" "}
-                                {new Date(recipe.cookedOn).toLocaleDateString()}
-                              </p>
-                            </div>
-                            <Link to={`/recipe/${recipe.id}`}>
-                              <Button variant="outline" size="sm">
-                                View Recipe
-                              </Button>
-                            </Link>
-                          </div>
-                          <div className="flex gap-3 mt-3">
-                            <span className="px-2 py-1 bg-gray-100 rounded-full text-xs">
-                              {recipe.cookingTime}
-                            </span>
-                            <span className="px-2 py-1 bg-gray-100 rounded-full text-xs">
-                              {recipe.calories} cal
-                            </span>
-                            <span className="px-2 py-1 bg-gray-100 rounded-full text-xs">
-                              {recipe.dietType}
-                            </span>
-                          </div>
-                          <p className="mt-3 text-sm text-gray-600 line-clamp-2">
-                            {recipe.description}
-                          </p>
-                        </div>
-                      </div>
-                    </CardContent>
-                  </Card>
-                ))}
-              </div>
-            ) : (
+            <h2 className="text-2xl font-semibold pt-8">Cooking History</h2>          
               <div className="text-center py-12 bg-gray-50 rounded-xl">
                 <Clock size={48} className="mx-auto text-gray-300 mb-4" />
                 <h3 className="text-xl font-medium text-gray-700 mb-2">
@@ -293,7 +223,6 @@ const UserProfile = () => {
                   <Button>Start Cooking</Button>
                 </Link>
               </div>
-            )}
           </TabsContent>
 
           <TabsContent value="mealplans" className="space-y-6">
